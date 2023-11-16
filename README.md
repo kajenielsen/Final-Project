@@ -37,24 +37,24 @@ I submit for credit and then never touch again.
 
 ## Project Timeline
 ### Before the 18th
-    - Meet with professors to get feedback on project proposal and ask question
+- Meet with professors to get feedback on project proposal and ask question
 ### Nov 17-24
-    - Organize code into various folders
-    - Get three page's structures in place and link them to each other
-    - Get your css, javascript, and other files all linked up
-    - Style the pages and get their basic looks implemented
-    - Begin on implementing functionality for the Wordle game
+- Organize code into various folders
+- Get three page's structures in place and link them to each other
+- Get your css, javascript, and other files all linked up
+- Style the pages and get their basic looks implemented
+- Begin on implementing functionality for the Wordle game
 ### Nov 24-Dec 1
-    - Finish implementing functionality for the Wordle game
-    - Begin implementing functionality for the Pig Farm
-    - Work on making loadable and saveable data
+- Finish implementing functionality for the Wordle game
+- Begin implementing functionality for the Pig Farm
+- Work on making loadable and saveable data
 ### Dec 1-8
-    - Finish implementing functionality for the Pig Farm
-    - Make sure that everything is tied together, ie Farm and Wordle work together with data
-    - Go through the rubric, and creatively implement anything that's missing
-    - Polish
+- Finish implementing functionality for the Pig Farm
+- Make sure that everything is tied together, ie Farm and Wordle work together with data
+- Go through the rubric, and creatively implement anything that's missing
+- Polish
 ### Dec 8-13
-    - **Make sure everything is done before this week even begins**
-    - Make final touches and polish things up
-    - Look for possible glitches or unhandled errors
-    - Implement extra credit
+- **Make sure everything is done before this week even begins**
+- Make final touches and polish things up
+- Look for possible glitches or unhandled errors
+- Implement extra credit
