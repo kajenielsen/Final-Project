@@ -4,7 +4,7 @@
 ## Description
 **This is the 3+ paragraph description specified in Canvas**
 
-    This idea is going to sound really quirky and zany, but I'd like to make a guinea pig farm simulator game.
+This idea is going to sound really quirky and zany, but I'd like to make a guinea pig farm simulator game.
 The basic idea is that you have a farm filled with guinea pigs that you can drag and drop around and click
 on them to see their individual stats. The cage has hay, water, pellets, and a veggie bowl that you have to
 keep filled as well. The player will have money that they have to carefully spend to make sure they stay
@@ -12,7 +12,8 @@ nourished, as well as adopt new guinea pigs. To earn this money, you play Wordle
 earn money based on how quickly you can guess the word. Additionally, you can buy livestreaming equipment, 
 and if you livestream, you'll earn even more money based on how many guinea pigs you own, and what kinds
 they are. Rarer guinea pigs will net more money.
-    As far as implementing this goes, there's kind of two ways that I've thought about doing it. I could either
+
+As far as implementing this goes, there's kind of two ways that I've thought about doing it. I could either
 create my own Wordle game, or I could try to some how link it up with an external Worldle website that somebody 
 else already made in a way that has the website take back data on whether or not you won, how many guinea pigs
 you were streaming with, etc. I don't know if the second option would be possible though, so I might just try to
@@ -23,7 +24,8 @@ that link to each other, and there would also be a title page where you select b
 exiting out of the other two pages takes you back to the title page. When you first load the title page, it will
 ask for your username so that it can save and load data locally. I was also wondering if for the "Hard Stuff" part
 of the rubric I could try and implement sound effects or music.
-    The reason that I chose this particular project is because I've been playing a bit of Wordle lately, and I 
+
+The reason that I chose this particular project is because I've been playing a bit of Wordle lately, and I 
 feel like it's something I could build myself without too much trouble. However, I was having trouble thinking of 
 a way for a project like this to implement all of the requirements such as the forms and lists, so I was thinking
 of doing some sort of word library where you can keep track of words that you've guessed. However, I felt like that
