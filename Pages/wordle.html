@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle Time!</title>
     <link rel="stylesheet" href="wordle.css">
+    <script src="../src/index.js" type="module"></script>
 </head>
 
 <body>
+    <nav>
+        <a href="menu.html" class="returntohome">Back</a>
+    </nav>
     <h1>Wordle Time!</h1>
-    <div class="GuessingContainer">
+    <section class="GuessingContainer">
         <div class="column1">
             <a class=box1 id="wordbox">
                 A <!--Delete 'A' later-->
@@ -95,25 +99,7 @@
             <a class=box5 id="wordbox">
 
             </a>
-        </div>
-        <div class="column6">
-            <a class=box1 id="wordbox">
-
-            </a>
-            <a class=box2 id="wordbox">
-
-            </a>
-            <a class=box3 id="wordbox">
-
-            </a>
-            <a class=box4 id="wordbox">
-
-            </a>
-            <a class=box5 id="wordbox">
-
-            </a>
-        </div>
-    </div>
+    </section>
     <table class="wordlekeyboard">
         <tr>
             <td class="wordlekey">A</td>
@@ -146,9 +132,25 @@
             <td class="wordlekey">Z</td>
         </tr>
     </table>
-    <nav>
-        <a href="menu.html" class="returntohome">Back</a>
-    </nav>
+
+    <article> <!--This is a description of how to play that can expand and collapse.-->
+        <h4>How to play Wordle</h4>
+        <button id="showDescriptionButton" class="descbutton">Toggle Description</button>
+        <aside id="howToPlayContent">
+            <p class ="wordleisa">Wordle is a word puzzle game where the player tries to guess a secret word. Here's how to play:</p>
+            <ol>
+                <li>Click on the letters to make a guess.</li>
+                <li>The letters will change color to indicate correctness:
+                    <ul>
+                        <li><strong class = wordgreen>Green:</strong> Correct and in the correct position.</li>
+                        <li><strong class="wordyellow">Yellow:</strong> Correct but in the wrong position.</li>
+                        <li><strong class="wordred">Red:</strong> Word does not contain letter.</li>
+                    </ul>
+                </li>
+                <li>Keep guessing until you find the correct word or run out of attempts!</li>
+            </ol>
+        </aside>
+    </article>
 </body>
 
 </html>

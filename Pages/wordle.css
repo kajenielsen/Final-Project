@@ -1,23 +1,37 @@
 body {
     font-family: 'Arial', sans-serif;
-    text-align: center;
+    /* text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     height: 100vh;
     margin: 0;
     flex-direction: column;
     /* Stack children vertically */
+    background-color: #AAAAAA;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
+    text-align: center;
     margin-top: 20px;
     /* Adjust top margin as needed */
+}
+
+h4 {
+    text-align: center;
+}
+
+.descbutton {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
 }
 
 .GuessingContainer {
     justify-content: center;
     display: grid;
-    grid-template-columns: repeat(6, 50px);
+    grid-template-columns: repeat(5, 50px);
     margin-top: 20px;
 }
 
@@ -40,6 +54,10 @@ h1 {
     margin: 5px;
 }
 
+.wordleisa {
+    text-align: center;
+}
+
 .wordlekey {
     width: 45px;
     height: 50px;
@@ -55,15 +73,17 @@ h1 {
 /* Navigation styles */
 .returntohome {
     display: inline-block;
-    padding: 10px 20px;
-    text-align: center;
+    padding: 1px 2px;
+    text-align: left;
+    /* Updated to left */
     text-decoration: none;
     background-color: #4CAF50;
-    /* Green color, you can change this */
     color: white;
     border: 1px solid #4CAF50;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    margin: 10px 20px;
+    /* Adjust margin as needed */
 }
 
 /* Button hover effects */
@@ -71,4 +91,16 @@ h1 {
     background-color: #45a049;
     /* Darker green color on hover, you can change this */
     border-color: #45a049;
+}
+
+.wordgreen {
+    color: green;
+}
+
+.wordyellow {
+    color: yellow;
+}
+
+.wordred {
+    color: red;
 }
