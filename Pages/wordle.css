@@ -46,12 +46,24 @@ h4 {
     width: 45px;
     height: 50px;
     background-color: #86f1f4;
-    color: white;
+    color: #EEC23C;
     text-align: center;
     line-height: 50px;
     text-decoration: none;
     border-radius: 5px;
     margin: 5px;
+    font-size: 40px;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+#wordbox:hover {
+    filter: brightness(1.2); /* I'm doing this instead of a specific color since this color will vary */
+}
+
+#wordbox.selected {
+    background-color: white;
 }
 
 .wordleisa {
@@ -68,6 +80,13 @@ h4 {
     text-decoration: none;
     border-radius: 25px;
     margin: 5px;
+    transition: filter 0.3s ease;
+    cursor: pointer;
+}
+
+.wordlekey:hover {
+    /* background-color: #EFF41C; */
+    filter: brightness(1.2);
 }
 
 /* Navigation styles */

@@ -12,8 +12,67 @@ export function InitializeWordlePage() {
     var descriptionToggler = document.getElementById('showDescriptionButton');
     descriptionToggler.addEventListener('click', toggleHowToPlay);
     toggleHowToPlay(); // Hides on page load
-    const randomWord = getRandomWord(); // DELETE LATER OR PEOPLE CAN CHEAT
-    console.log('Random Word: ', randomWord);
+
+    // DIGITAL TYPING FUNCTIONALITY
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all the Wordle grid box elements
+        const boxElements = document.querySelectorAll('#wordbox');
+
+        // Get all the keyboard key elements
+        const keyElements = document.querySelectorAll('.wordlekey');
+
+        // Variable to keep track of the selected box
+        let selectedBox = null;
+
+        let selectedBoxIndex = 0;
+
+        // Function to handle box selection
+        const handleBoxSelection = function (event) {
+            // Remove the "selected" class from all boxes for safety
+            boxElements.forEach(function (box) {
+                box.classList.remove('selected');
+            })
+
+            // Add the "selected" class to the clicked box
+            event.target.classList.add('selected');
+
+            // Update the selectedBox variable
+            // selectedBox = event.target;
+
+            selectedBoxIndex = Array.from(boxElements).indexOf(event.target);
+        };
+
+        // Function to handle keyboard key click
+        const handleKeyClick = function (event) {
+            // Check if a box is selected
+            if (selectedBoxIndex !== null) {
+                // Set the inner text of the selected box to the clicked key
+                boxElements[selectedBoxIndex].textContent = event.target.textContent;
+
+                // Move to the next box to the right
+                selectedBoxIndex = (selectedBoxIndex + 1) % boxElements.length;
+
+                // Remove the old ones first
+                boxElements.forEach(function (box) {
+                    box.classList.remove('selected');
+                })
+
+                // Add the "selected" class to the new selected box
+                boxElements[selectedBoxIndex].classList.add('selected');
+            }
+        };
+
+        // Event listeners for keyboard stuff to work
+
+        boxElements.forEach(function (box) {
+            box.addEventListener('click', handleBoxSelection);
+        });
+
+        keyElements.forEach(function (key) {
+            key.addEventListener('click', handleKeyClick);
+        })
+    })
 }
 
 // DRAGGABLE GUINEA PIGS
