@@ -52,19 +52,19 @@ export function InitializeFarmPage() {
         
                 if (draggedElement.id === 'pigA') { /* Different pigs need different offsets due to different crop sizings */
                     offsetX = draggedElement.clientWidth / 2;
-                    offsetY = draggedElement.clientHeight *2.5;
+                    offsetY = draggedElement.clientHeight *1.5;
                 } else if (draggedElement.id === 'pigB') {
                     offsetX = draggedElement.clientWidth / 2;
-                    offsetY = draggedElement.clientHeight * 3;
+                    offsetY = draggedElement.clientHeight * 1.5;
                 } else if (draggedElement.id === 'pigC') {
                     offsetX = draggedElement.clientWidth / 2;
-                    offsetY = draggedElement.clientHeight * 3;
+                    offsetY = draggedElement.clientHeight * 1.5;
                 } else if (draggedElement.id === 'pigD') {
                     offsetX = draggedElement.clientWidth / 2;
-                    offsetY = draggedElement.clientHeight * 3;
+                    offsetY = draggedElement.clientHeight * 1.5;
                 } else if (draggedElement.id === 'pigE') {
                     offsetX = draggedElement.clientWidth / 2;
-                    offsetY = draggedElement.clientHeight * 2.5;
+                    offsetY = draggedElement.clientHeight * 1.5;
                 }
 
                 // Dropped in specified spot
