@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap');
+
+body {
+    background: url(../Images/grass.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.mainheader {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 60px;
+    display: block;
+    padding: 0.1px 1px;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 0px;
+    color: #FB024A;
+    text-shadow: 2px 2px 4px black;
+}
+
+.returntohome {
+    display: inline-block;
+    padding: 1px 2px;
+    text-align: center;
+    /* Updated to left */
+    text-decoration: none;
+    background-color: #F0F624;
+    color: black;
+    border: 1px solid #9BA004;
+    border-radius: 7px;
+    transition: background-color 0.3s ease;
+    margin: 10px 20px;
+    height: 30px;
+    width: 75px;
+    font-size: 13px;
+    font-weight: bold;
+    /* Adjust margin as needed */
+}
+
+/* Info Container Styles */
+
+.InfoBox {
+    background-color: #F6F7CB;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    height: 35%;
+    border: 4px solid red;
+    box-sizing: border-box; /* Includes border in scaling */
+}
+
+.pigPic {
+    width: 12%;
+    height: auto;
+}
+
+#pigC { /* Using nth child to override */
+    width: 7%;
+    height: auto;
+}
+
+#pigD { 
+    width: 8%;
+    height: auto;
+}
