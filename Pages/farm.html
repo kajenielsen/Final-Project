@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Piggie Farm</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="farm.css">
+    <script type="module" src="../src/farm.js"></script>
 </head>
+
 <body>
     <nav>
         <a href="menu.html" class="returntohome">Return To Menu</a>
     </nav>
     <h1 class="mainheader">PIGGIE FARM</h1>
-    <div class="piggie" draggable="true">
-        <img class="pigPic" id="pigA" src="../Images/piggieA.png"></img>
-    </div>
-    <div class="piggie" draggable="true">
-        <img class="pigPic" id="pigB" src="../Images/piggieB.png"></img>
-    </div>
-    <div class="piggie" draggable="true">
-        <img class="pigPic" id="pigC" src="../Images/piggieC.png"></img>
-    </div>
-    <div class="piggie" draggable="true">
-        <img class="pigPic" id="pigD" src="../Images/piggieD.png"></img>
-    </div>
-    <div class="piggie" draggable="true">
-        <img class="pigPic" id="pigE" src="../Images/piggieE.png"></img>
-    </div>
+    <section class="dragContainer" id="dragContainer">
+        <div class="piggie" draggable="true">
+            <img class="pigPic" id="pigA" src="../Images/piggieA.png" alt="Pig A">
+        </div>
+        <div class="piggie" draggable="true">
+            <img class="pigPic" id="pigB" src="../Images/piggieB.png" alt="Pig B">
+        </div>
+        <div class="piggie" draggable="true">
+            <img class="pigPic" id="pigC" src="../Images/piggieC.png" alt="Pig C">
+        </div>
+        <div class="piggie" draggable="true">
+            <img class="pigPic" id="pigD" src="../Images/piggieD.png" alt="Pig D">
+        </div>
+        <div class="piggie" draggable="true">
+            <img class="pigPic" id="pigE" src="../Images/piggieE.png" alt="Pig E">
+        </div>
+    </section>
     <section class="InfoBox">
 
     </section>
 </body>
+
 </html>
