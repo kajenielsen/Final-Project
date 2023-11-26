@@ -15,7 +15,7 @@ export function InitializeWordlePage() {
 
     // DIGITAL TYPING FUNCTIONALITY
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Get all the Wordle grid box elements
         const boxElements = document.querySelectorAll('#wordbox');
 
@@ -41,6 +41,7 @@ export function InitializeWordlePage() {
             // selectedBox = event.target;
 
             selectedBoxIndex = Array.from(boxElements).indexOf(event.target);
+            console.log("Box Index: ", selectedBoxIndex)
         };
 
         // Function to handle keyboard key click
@@ -50,16 +51,19 @@ export function InitializeWordlePage() {
                 // Set the inner text of the selected box to the clicked key
                 boxElements[selectedBoxIndex].textContent = event.target.textContent;
 
-                // Move to the next box to the right
-                selectedBoxIndex = (selectedBoxIndex + 1) % boxElements.length;
+                if (selectedBoxIndex !== 20 && selectedBoxIndex !== 21 && selectedBoxIndex !== 22 && selectedBoxIndex !== 23 && selectedBoxIndex !== 24) {
+                    // Move to the next box to the right
+                    selectedBoxIndex = (selectedBoxIndex + 5) % boxElements.length;
 
-                // Remove the old ones first
-                boxElements.forEach(function (box) {
-                    box.classList.remove('selected');
-                })
+                    // Remove the old ones first
+                    boxElements.forEach(function (box) {
+                        box.classList.remove('selected');
+                    })
 
-                // Add the "selected" class to the new selected box
-                boxElements[selectedBoxIndex].classList.add('selected');
+                    // Add the "selected" class to the new selected box
+                    boxElements[selectedBoxIndex].classList.add('selected');
+                }
+                console.log("Box Index: ", selectedBoxIndex)
             }
         };
 
