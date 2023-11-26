@@ -51,6 +51,7 @@ export function InitializeWordlePage() {
                 // Set the inner text of the selected box to the clicked key
                 boxElements[selectedBoxIndex].textContent = event.target.textContent;
 
+                // This big if statement is to make sure it doesn't loop back around at the end of a row.
                 if (selectedBoxIndex !== 20 && selectedBoxIndex !== 21 && selectedBoxIndex !== 22 && selectedBoxIndex !== 23 && selectedBoxIndex !== 24) {
                     // Move to the next box to the right
                     selectedBoxIndex = (selectedBoxIndex + 5) % boxElements.length;

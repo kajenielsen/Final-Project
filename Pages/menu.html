@@ -6,6 +6,7 @@
     <title>Guinea Pig Wordle!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="../src/menu.js"></script>
 </head>
 
 <body>
@@ -17,6 +18,16 @@
             <a href="wordle.html" class="wordlebutton">Wordle</a>
             <a href="farm.html" class="farmbutton">Farm</a>
         </nav>
+        <form id="login-form">
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+
+            <input class="button" type="submit" value="Log In">
+        </form>
         <p>Description</p>
     </section>
 </body>

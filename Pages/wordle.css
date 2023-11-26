@@ -22,6 +22,36 @@ h4 {
     text-align: center;
 }
 
+.GuessButton {
+    display: block;
+    position: relative;
+    right: -63%;
+    top: 28.3%;
+    transform: translateY(-50%);
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: filter 0.1s ease;
+}
+
+.GuessButton:hover {
+    filter: brightness(1.5);
+}
+
+@media (max-width: 768px) { /* For screen half size, which I work with a lot, so it's mainly for my convenience. */
+    .GuessButton {
+        position: relative; /* Change to static positioning for smaller screens */
+        margin-top: 8px; /* Add margin from the top to separate it from the grid */
+        transform: translateY(0); /* Reset vertical translation */
+        right: -75%;
+        top: 26%;
+
+    }
+}
+
 .descbutton {
     text-align: center;
     display: block;
@@ -64,6 +94,8 @@ h4 {
 
 #wordbox.selected {
     background-color: white;
+    /* border-color: red;
+    border-width: 3px; Not working for some reason.*/
 }
 
 .wordleisa {
