@@ -18,16 +18,27 @@
             <a href="wordle.html" class="wordlebutton">Wordle</a>
             <a href="farm.html" class="farmbutton">Farm</a>
         </nav>
-        <form id="login-form">
-            <h2>Login</h2>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+        <div id="logout-button-container">
+            <button id="logout-button">Logout</button>
+        </div>
+        <!--Pop-up Login Box-->
+        <div id="popup-container">
+            <div id="popup-content">
+                <span id="close-popup">&times;</span>
+                <form id="login-form">
+                    <h2>Login</h2>
+                    <p>Type in a new or existing username and password here</p>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username">
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
 
-            <input class="button" type="submit" value="Log In">
-        </form>
+                    <input class="button" type="submit" value="Log In">
+                    <input class="button" type="reset" value="Clear">
+                </form>
+            </div>
+        </div>
         <p>Description</p>
     </section>
 </body>

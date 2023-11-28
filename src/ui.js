@@ -225,3 +225,27 @@ export function RandomizePigPositions(container) {
         });
     });
 }
+
+// Menu Box Popup
+
+export function ToggleLoginBox() {
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginBoxContainer = document.getElementById('popup-container');
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const username = urlSearchParams.get('username');
+        console.log("username: ", username);
+        const password = urlSearchParams.get('password');
+        console.log("password: ", password);
+        var isLoggedIn;
+        if (username === null || password === null) {
+            isLoggedIn = false;
+        }
+        else {
+            isLoggedIn = true;
+        }
+        console.log("isLoggedIn: ", isLoggedIn);
+        if (isLoggedIn) {
+            loginBoxContainer.style.display = 'none';
+        }
+    });
+}
