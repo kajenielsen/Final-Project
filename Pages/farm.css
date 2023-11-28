@@ -10,6 +10,12 @@ body {
     height: 100vh;
 }
 
+body,
+html {
+    overflow: hidden;
+}
+
+
 .mainheader {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 60px;
@@ -54,6 +60,8 @@ body {
     border: 4px solid red;
     box-sizing: border-box;
     /* Includes border in scaling */
+    border-collapse: collapse;
+    /* Collapse the borders between cells */
 }
 
 .dragContainer {
@@ -92,4 +100,130 @@ body {
 #pigD {
     width: 8%;
     height: auto;
+}
+
+.TableContainer {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.InfoBox th {
+    background-color: #f2f2f2;
+    /* Add background color for the header row */
+    padding: 10px;
+    /* Add padding for better visual appearance */
+    text-align: center;
+    /* Center the text within each table header cell */
+    width: 25%;
+    /* Set equal width for each column - adjust as needed */
+}
+
+/* Add these styles to your existing CSS */
+
+.infoTables {
+    width: 100%;
+    margin-top: 0px;
+    /* Add some spacing above the table */
+    border-collapse: collapse;
+    background-color: #fff;
+    /* Set a background color for the table */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Add a subtle box shadow */
+    width: 100%;
+}
+
+#titles th {
+    background-color: #f2f2f2;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    /* Add a border between header cells */
+}
+
+#infoColumns td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: top;
+    /* Align content to the top of data cells */
+    border: 1px solid #ddd;
+    /* Add a border between data cells */
+}
+
+/* Make titles remain in place as scrolling occurs in the table */
+.fixed-header-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    display: block;
+    /* Create a block-level container */
+    box-sizing: border-box;
+}
+
+.fixed-header-table th,
+.fixed-header-table td {
+    padding: 10px;
+    /* Adjust padding as needed */
+    text-align: left;
+    /* Adjust text alignment as needed */
+}
+
+/* Add these styles to your existing CSS */
+
+/* Style the first row (header) */
+.fixed-header-table thead {
+    display: table;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+    z-index: 1;
+    /* Ensure the header stays on top */
+}
+
+/* Style the remaining rows (body) */
+.fixed-header-table tbody {
+    display: table;
+    height: 200px;
+    width: 100%;
+    /* Adjust the height as needed */
+    overflow-y: scroll;
+}
+
+/* Set equal width for each column - adjust as needed */
+.fixed-header-table th,
+.fixed-header-table td {
+    padding: 15px;
+    text-align: center;
+    width: 25%;
+    border: 1px solid #ddd;
+}
+
+/* Additional styles for dl, ol, ul, and nested lists */
+#PigStats dl,
+#CageStats dl,
+#Shop dl {
+    margin: 0;
+}
+
+#PigStats dt,
+#CageStats dt,
+#Shop dt {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+#PigStats dd,
+#CageStats dd,
+#Shop dd {
+    margin: 0;
+}
+
+#Shop ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#Shop li {
+    margin-bottom: 5px;
 }

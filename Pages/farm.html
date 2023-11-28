@@ -33,7 +33,88 @@
             </div>
         </section>
         <section class="InfoBox">
-
+            <!--Piggies have names, rarity, personality, food, and water needs. This can be dl. You can also use dl for water and food capacity with needs as a fraction-->
+            <!--You can have a ol listing your rarest piggies, and another dl for shop items with prices-->
+            <div class="TableContainer">
+                <table class="infoTables fixed-header-table">
+                    <thead>
+                        <tr id="titles">
+                            <th>Piggie Stats</th>
+                            <th>Rarest Piggies</th>
+                            <th>Cage Stats</th>
+                            <th>Shop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="infoColumns">
+                            <td>
+                                <dl id="PigStats">
+                                    <dt>Name</dt>
+                                    <dd>PigName</dd>
+                                    <dt>Rarity Level</dt>
+                                    <dd>5</dd>
+                                    <dt>Personality</dt>
+                                    <dd>Sassy</dd>
+                                    <dt>Food Needed</dt>
+                                    <dd>5 Food Unit</dd>
+                                    <dt>Water Needed</dt>
+                                    <dd>5 Water Units</dd>
+                                </dl>
+                            </td>
+                            <td>
+                                <ol>
+                                    <li>Rarest</li>
+                                    <li>Rarer</li>
+                                    <li>Rare</li>
+                                </ol>
+                            </td>
+                            <td>
+                                <dl id="CageStats">
+                                    <dt>Daily Available Water/Daily Food Consumption</dt>
+                                    <dd>10/5</dd>
+                                    <dt>Daily Available Food/Daily Food Consumption</dt>
+                                    <dd>10/5</dd>
+                                    <dt>Current Wordle Earnings (base)</dt>
+                                    <dd>100 gold per game</dd>
+                                </dl>
+                            </td>
+                            <td id="Shop">
+                                <dl>
+                                    <dt>Water Bottle</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>Price: 500 Gold</li>
+                                            <li>Provides 20 water units daily</li>
+                                        </ul>
+                                    </dd>
+                                    <dt>Magic Food Bowl</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>Price: 100 Gold</li>
+                                            <li>Provides 10 food units daily</li>
+                                        </ul>
+                                    </dd>
+                                    <dt>New Piggie</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>Price: 1500 Gold</li>
+                                            <li>A random new piggie. Require 5 food and water units daily.</li>
+                                        </ul>
+                                    </dd>
+                                    <dt>New Piggie From Special Store</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>Price: 2000 Gold</li>
+                                            <li>A random new piggie. Require 5 food and water units daily.</li>
+                                            <li>Chances of a rare piggie are higher</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </div>
 </body>
