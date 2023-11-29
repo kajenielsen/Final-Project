@@ -128,3 +128,27 @@ h3 {
 #descriptionbox p {
     margin: 0;/* Remove default margin for better appearance */
 }
+
+#descriptionList {
+    text-align: left;
+    font-size: 18px;
+}
+
+#descriptionHeader {
+    font-size: 25px;
+}
+
+#bumblePic {
+    width: 225px;
+    height: auto;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    border-width: 3px;
+    border-color: red;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+#listAndPic {
+    display: flex;
+}
