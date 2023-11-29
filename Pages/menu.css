@@ -56,7 +56,7 @@ h3 {
     width: fit-content;
 }
 
-.UserWelcome {
+#UserWelcome {
     margin: auto;
     margin-bottom: 10px;
     font-family: 'Kanit', sans-serif;
@@ -67,6 +67,24 @@ h3 {
 }
 
 /* Login Styles */
+
+#logout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #e85d85;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#logout-button:hover {
+    background-color: #FF4576;
+}
+
 
 #login-form {
     text-align: center;
@@ -79,8 +97,34 @@ h3 {
     margin-left: 42%;
 }
 
+#formbuttons {
+   display: flex;
+   justify-content: center; 
+}
+
+#login-form input.button {
+    margin-right: 10px; /* Adjust this value as needed for spacing */
+}
+
 .button {
     display: flex;
     justify-content: right;
     margin: 10px;
+}
+
+/* Description box styles */
+
+#descriptionbox {
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 30px;
+    background-color: #F6F7CB;
+}
+
+#descriptionbox p {
+    margin: 0;/* Remove default margin for better appearance */
 }

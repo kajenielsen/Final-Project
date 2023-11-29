@@ -1,7 +1,9 @@
 import { InitializeWordlePage, toggleHowToPlay } from "./ui.js";
 import {getRandomWord} from "./svc.js"
+import {InitializeWordleDomainElements} from "./domain.js"
 console.log("Using script"); // Making sure the path is correct
 InitializeWordlePage();
+InitializeWordleDomainElements();
 
 // Picking Random Word
 

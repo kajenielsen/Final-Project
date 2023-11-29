@@ -13,6 +13,10 @@ export function InitializeWordlePage() {
     descriptionToggler.addEventListener('click', toggleHowToPlay);
     toggleHowToPlay(); // Hides on page load
 
+    // Dynamic Header
+
+    WishGoodLuckToUser();
+
     // DIGITAL TYPING FUNCTIONALITY
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -84,6 +88,10 @@ export function InitializeWordlePage() {
 
 export function InitializeFarmPage() {
     document.addEventListener('DOMContentLoaded', function () {
+        // Dynamic Owner Banner
+        SetOwnerBanner();
+
+        // Grabbing Drag Container Element
         const dragContainer = document.getElementById('dragContainer');
 
         // Additional variable to keep track of the dragged element
@@ -231,6 +239,9 @@ export function RandomizePigPositions(container) {
 export function ToggleLoginBox() {
     document.addEventListener('DOMContentLoaded', function () {
         const loginBoxContainer = document.getElementById('popup-container');
+        const logoutButtonContainer = document.getElementById('logout-button-container');
+        const WelcomeContainer = document.getElementById('UserWelcome');
+        console.log("Welcome Container:", WelcomeContainer);
         const urlSearchParams = new URLSearchParams(window.location.search);
         const username = urlSearchParams.get('username');
         console.log("username: ", username);
@@ -243,9 +254,29 @@ export function ToggleLoginBox() {
         else {
             isLoggedIn = true;
         }
-        console.log("isLoggedIn: ", isLoggedIn);
         if (isLoggedIn) {
+            logoutButtonContainer.style.display = 'block';
             loginBoxContainer.style.display = 'none';
+            WelcomeContainer.textContent = `Welcome, ${username}!`;
+        }
+        else {
+            logoutButtonContainer.style.display = 'none';
+            loginBoxContainer.style.display = 'block';
+            WelcomeContainer.textContent = "Welcome! Please Log in!"
         }
     });
+}
+
+function WishGoodLuckToUser() {
+    const LuckContainer = document.getElementById('goodLuckBanner');
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const username = urlSearchParams.get('username');
+    LuckContainer.textContent = `Good luck, ${username}!`;
+}
+
+function SetOwnerBanner() {
+    const LuckContainer = document.getElementById('ownerbanner');
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const username = urlSearchParams.get('username');
+    LuckContainer.textContent = `${username}'s`;
 }
