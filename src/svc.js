@@ -50,3 +50,49 @@ export function getRandomWord() {
     const randomIndex = Math.floor(Math.random() * wordList.length);
     return wordList[randomIndex];
 }
+
+// Saving and storing user data
+
+export function SaveData() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const username = urlSearchParams.get('username');
+    const password = urlSearchParams.get('password');
+
+    if (username !== null && password !== null) {
+        // Send a request to the server to save data
+        fetch('http://localhost:3000/saveData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+    }
+    else {
+        console.log("No user logged in");
+    }
+}
+
+export function LoadData(username) {
+    const url = `http://localhost:3000/fetchUserData?username=${username}`;
+
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(userData => {
+            console.log('User data from server:', userData);
+            // Do something with the fetched data
+            return userData;
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            // Handle errors as needed
+        });
+}

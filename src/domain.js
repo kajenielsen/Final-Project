@@ -1,3 +1,5 @@
+import { SaveData, LoadData } from "./svc.js";
+
 export function InitializeMenuDomainElements() { // Wasn't sure what to name this.
     document.addEventListener('DOMContentLoaded', function () {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -29,18 +31,20 @@ export function InitializeMenuDomainElements() { // Wasn't sure what to name thi
                 window.alert("You must log in to access Farm.");
             }
         });
+        SaveData();
     });
 }
 
 export function InitializeWordleDomainElements() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const username = urlSearchParams.get('username');
+    const password = urlSearchParams.get('password');
     document.querySelector('.returntohome').addEventListener('click', function () {
         event.preventDefault();
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const username = urlSearchParams.get('username');
-        const password = urlSearchParams.get('password');
         redirectToPage(`menu.html?username=${username}&password=${password}`);
         console.log("Redirecting...");
     });
+    LoadData(username);
 }
 
 export function InitializeFarmDomainElements() {
