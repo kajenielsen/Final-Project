@@ -1,3 +1,4 @@
+import { CurrentWordleRow, CheckWord } from "./domain.js";
 import { getRandomWord } from "./svc.js";
 
 // For description that toggles on Wordle Page
@@ -20,11 +21,14 @@ export function InitializeWordlePage() {
     // DIGITAL TYPING FUNCTIONALITY
 
     document.addEventListener('DOMContentLoaded', function () {
+        var currentGuess = 1;
         // Get all the Wordle grid box elements
         const boxElements = document.querySelectorAll('#wordbox');
 
         // Get all the keyboard key elements
         const keyElements = document.querySelectorAll('.wordlekey');
+
+        const guessButton = document.querySelector('.GuessButton');
 
         // Variable to keep track of the selected box
         let selectedBox = null;
@@ -33,19 +37,26 @@ export function InitializeWordlePage() {
 
         // Function to handle box selection
         const handleBoxSelection = function (event) {
-            // Remove the "selected" class from all boxes for safety
-            boxElements.forEach(function (box) {
-                box.classList.remove('selected');
-            })
+            const boxClicked = event.target
+            const selectedRow = CurrentWordleRow(boxClicked); // Logic to find current row
+            console.log("Row selected: ", selectedRow);
 
-            // Add the "selected" class to the clicked box
-            event.target.classList.add('selected');
+            if (selectedRow === currentGuess) {
 
-            // Update the selectedBox variable
-            // selectedBox = event.target;
+                // Remove the "selected" class from all boxes for safety
+                boxElements.forEach(function (box) {
+                    box.classList.remove('selected');
+                })
 
-            selectedBoxIndex = Array.from(boxElements).indexOf(event.target);
-            console.log("Box Index: ", selectedBoxIndex)
+                // Add the "selected" class to the clicked box
+                event.target.classList.add('selected');
+
+                // Update the selectedBox variable
+                // selectedBox = event.target;
+
+                selectedBoxIndex = Array.from(boxElements).indexOf(event.target);
+                console.log("Box Index: ", selectedBoxIndex)
+            }
         };
 
         // Function to handle keyboard key click
@@ -72,6 +83,54 @@ export function InitializeWordlePage() {
             }
         };
 
+        const selectFirstBoxInRow = (row) => { // Does what the name suggests
+            const boxElements = document.querySelectorAll(`.box${row}`);
+            const allBoxElements = document.querySelectorAll('.box');
+
+            // Remove the "selected" class from all boxes for safety
+            allBoxElements.forEach(function (box) {
+                box.classList.remove('selected');
+            });
+
+            // Add the "selected" class to the first box in the row
+            boxElements[0].classList.add('selected');
+
+            // A switch statement to set the next box index
+            // selectedBoxIndex -=19;
+            switch (row) {
+                case 1:
+                    selectedBoxIndex = 0;
+                    break;
+                case 2:
+                    selectedBoxIndex = 1;
+                    break;
+                case 3:
+                    selectedBoxIndex = 2;
+                    break;
+                case 4:
+                    selectedBoxIndex = 3;
+                    break;
+                case 5:
+                    selectedBoxIndex = 4;
+                    break;
+
+            }
+        };
+
+        const HandleGuessClick = function (event) {
+            event.preventDefault();
+            const whiteBox = document.querySelector('.selected');
+            const currentRow = CurrentWordleRow(whiteBox);
+            console.log(`The box is in row ${currentRow}`);
+            const rowofBoxes = document.querySelectorAll(`.box${currentRow}`);
+            console.log("rowofBoxes: ", rowofBoxes);
+            CheckWord(rowofBoxes);
+
+            // Select the first box in the next row
+            currentGuess += 1;
+            selectFirstBoxInRow(currentGuess);
+        };
+
         // Event listeners for keyboard stuff to work
 
         boxElements.forEach(function (box) {
@@ -81,6 +140,10 @@ export function InitializeWordlePage() {
         keyElements.forEach(function (key) {
             key.addEventListener('click', handleKeyClick);
         })
+
+        // Guess button event listener
+
+        guessButton.addEventListener('click', HandleGuessClick)
     })
 }
 
@@ -279,4 +342,14 @@ function SetOwnerBanner() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const username = urlSearchParams.get('username');
     LuckContainer.textContent = `${username}'s`;
+}
+
+export function ColorBoxes(rowofBoxes, boxColors) { // Colors the Wordle boxes after a guess
+    rowofBoxes.forEach((box, i) => {
+        const color = boxColors[i];
+
+        // Assuming you have predefined CSS classes for each color
+        box.classList.remove('green', 'yellow', 'red');
+        box.classList.add(color);
+    });
 }
