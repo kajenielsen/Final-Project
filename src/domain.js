@@ -1,20 +1,29 @@
-import { SaveData, LoadData, getRandomWord } from "./svc.js";
-import {ColorBoxes} from "./ui.js"
+import { SaveData, LoadData, getRandomWord, ModifyGold, GetGoldAmmount } from "./svc.js";
+import { ColorBoxes } from "./ui.js"
 
 var secretWord = null;
 
-export function InitializeMenuDomainElements() { // Wasn't sure what to name this.
+export async function InitializeMenuDomainElements() { // Wasn't sure what to name this.
     document.addEventListener('DOMContentLoaded', function () {
         const urlSearchParams = new URLSearchParams(window.location.search);
         const username = urlSearchParams.get('username');
         const password = urlSearchParams.get('password');
-        console.log(`Domain has username and password as ${username} and ${password}.`);
+        console.log(`Domain has username and password as ${username} and ${password}, and gold as ${GetGoldAmmount()}`);
         // Wordle and Farm link click events
-        document.querySelector('.wordlebutton').addEventListener('click', function () {
+        document.querySelector('.wordlebutton').addEventListener('click', async function () {
             if (username !== null && password !== null) {
                 event.preventDefault();
-                redirectToPage(`wordle.html?username=${username}&password=${password}`);
-                console.log("Redirecting...");
+                try {
+                    const data = await SaveData();
+                    // Code to execute on SaveData success
+                    console.log("SaveData successful:", data);
+                    redirectToPage(`wordle.html?username=${username}&password=${password}`);
+                    console.log("Redirecting...");
+                } catch (error) {
+                    // Code to execute on SaveData error
+                    console.error("SaveData error:", error);
+                    // Handle the error or stop execution
+                }
             }
             else {
                 event.preventDefault();
@@ -25,6 +34,7 @@ export function InitializeMenuDomainElements() { // Wasn't sure what to name thi
         document.querySelector('.farmbutton').addEventListener('click', function () {
             if (username !== null && password !== null) {
                 event.preventDefault();
+                SaveData();
                 redirectToPage(`farm.html?username=${username}&password=${password}`);
                 console.log("Redirecting...");
             }
@@ -34,27 +44,43 @@ export function InitializeMenuDomainElements() { // Wasn't sure what to name thi
                 window.alert("You must log in to access Farm.");
             }
         });
-        SaveData();
     });
 }
 
-export function InitializeWordleDomainElements() {
+export async function InitializeWordleDomainElements() {
     secretWord = getRandomWord();
     secretWord = secretWord.toUpperCase();
     const urlSearchParams = new URLSearchParams(window.location.search);
     const username = urlSearchParams.get('username');
     const password = urlSearchParams.get('password');
-    document.querySelector('.returntohome').addEventListener('click', function () {
+    document.querySelector('.returntohome').addEventListener('click', async function () {
         event.preventDefault();
-        redirectToPage(`menu.html?username=${username}&password=${password}`);
-        console.log("Redirecting...");
+        try {
+            const data = await SaveData();
+            // Code to execute on SaveData success
+            console.log("SaveData successful:", data);
+            redirectToPage(`menu.html?username=${username}&password=${password}`);
+            console.log("Redirecting...");
+        } catch (error) {
+            // Code to execute on SaveData error
+            console.error("SaveData error:", error);
+            // Handle the error or stop execution
+        }
     });
-    LoadData(username);
+
+    await LoadData(username);
 }
 
-export function InitializeFarmDomainElements() {
-    document.querySelector('.returntohome').addEventListener('click', function () {
+export async function InitializeFarmDomainElements() {
+    document.querySelector('.returntohome').addEventListener('click', async function () {
         event.preventDefault();
+        try {
+            const data = await SaveData();
+        } catch (error) {
+            // Code to execute on SaveData error
+            console.error("SaveData error:", error);
+            // Handle the error or stop execution
+        }
         const urlSearchParams = new URLSearchParams(window.location.search);
         const username = urlSearchParams.get('username');
         const password = urlSearchParams.get('password');
@@ -93,6 +119,20 @@ export function CheckWord(rowofBoxes) { // Checks to see if the right word was c
 
     if (guessedWord === secretWord) { // The word is correct
         // Initiate Victory Sequence. Implement Later.
+        console.log("You won!");
+        var boxColors = ['green', 'green', 'green', 'green', 'green'];
+        ColorBoxes(rowofBoxes, boxColors);
+
+        setTimeout(function () { // This is to give the boxes time to color before the window alert.
+            const goldWon = CalculateGoldWon();
+            ModifyGold("add", 100);
+            window.alert(`Congratulations! You won ${goldWon} gold! Refresh to play again or return to menu with the button in the top left.`)
+            // Maybe you can pretty this up with sweet alert later.
+        }, 300);
+
+
+        return false;
+        // Delete guess box
     }
     else { // The word is incorrect, so color it.
         var boxColors = [];
@@ -110,5 +150,11 @@ export function CheckWord(rowofBoxes) { // Checks to see if the right word was c
         }
         console.log("Box colors: ", boxColors);
         ColorBoxes(rowofBoxes, boxColors); // Implement
+        return true;
     }
+}
+
+function CalculateGoldWon() {
+    // Implement More Later
+    return 100;
 }

@@ -46,6 +46,11 @@ const wordList = [ // These are the words for Wordle
     "Thwap", "Viola", "Vivat", "Wacko", "Wahey", "Wilma", "Wirra", "Woops", "Wowie", "Yecch", "Yeeha", "Yeesh", "Yowch", "Zowie"
 ]
 
+// Important Variables:
+var username;
+var password;
+var gold = 0;
+
 export function getRandomWord() {
     const randomIndex = Math.floor(Math.random() * wordList.length);
     return wordList[randomIndex];
@@ -54,27 +59,36 @@ export function getRandomWord() {
 // Saving and storing user data
 
 export function SaveData() {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const username = urlSearchParams.get('username');
-    const password = urlSearchParams.get('password');
+    return new Promise((resolve, reject) => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const username = urlSearchParams.get('username');
+        const password = urlSearchParams.get('password');
 
-    if (username !== null && password !== null) {
-        // Send a request to the server to save data
-        fetch('http://localhost:3000/saveData', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-        })
+        if (username !== null && password !== null) {
+            // Send a request to the server to save data
+            fetch('http://localhost:3000/saveData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password, gold }),
+            })
             .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-    }
-    else {
-        console.log("No user logged in");
-    }
+            .then(data => {
+                console.log(data);
+                resolve(data); // Resolve the promise on success
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                reject(error); // Reject the promise on error
+            });
+        } else {
+            console.log("No user logged in");
+            reject("No user logged in"); // Reject the promise if no user is logged in
+        }
+    });
 }
+
 
 export function LoadData(username) {
     const url = `http://localhost:3000/fetchUserData?username=${username}`;
@@ -95,4 +109,23 @@ export function LoadData(username) {
             console.error('Fetch error:', error);
             // Handle errors as needed
         });
+}
+
+export function ModifyGold(operation, quantity) {
+    switch (operation) {
+        case "add":
+            gold += quantity;
+            break;
+        case "sub":
+            gold -= quantity;
+            break;
+        default:
+            console.log(`ModifyGold cannot use operation: ${operation}`);
+            break;
+    }
+    console.log("Gold: ", gold);
+}
+
+export function GetGoldAmmount() {
+    return gold;
 }

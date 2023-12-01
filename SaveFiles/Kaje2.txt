@@ -1,1 +1,3 @@
+Username: Kaje2
 Password: Nielsen
+Gold: undefined

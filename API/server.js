@@ -44,10 +44,10 @@ app.listen(PORT, () => {
 });
 
 app.post('/saveData', (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, gold } = req.body;
 
     // Perform file I/O operations here
-    fs.writeFileSync(`../SaveFiles/${username}.txt`, `Password: ${password}`);
+    fs.writeFileSync(`../SaveFiles/${username}.txt`, `Username: ${username}\nPassword: ${password}\nGold: ${gold}`);
 
     res.json({ message: 'Data saved successfully' });
 });

@@ -9,6 +9,7 @@ export function toggleHowToPlay() {
 }
 
 export function InitializeWordlePage() {
+    var playing = true;
     // For Wordle rules toggler
     var descriptionToggler = document.getElementById('showDescriptionButton');
     descriptionToggler.addEventListener('click', toggleHowToPlay);
@@ -37,49 +38,53 @@ export function InitializeWordlePage() {
 
         // Function to handle box selection
         const handleBoxSelection = function (event) {
-            const boxClicked = event.target
-            const selectedRow = CurrentWordleRow(boxClicked); // Logic to find current row
-            console.log("Row selected: ", selectedRow);
+            if (playing) {
+                const boxClicked = event.target
+                const selectedRow = CurrentWordleRow(boxClicked); // Logic to find current row
+                console.log("Row selected: ", selectedRow);
 
-            if (selectedRow === currentGuess) {
+                if (selectedRow === currentGuess) {
 
-                // Remove the "selected" class from all boxes for safety
-                boxElements.forEach(function (box) {
-                    box.classList.remove('selected');
-                })
+                    // Remove the "selected" class from all boxes for safety
+                    boxElements.forEach(function (box) {
+                        box.classList.remove('selected');
+                    })
 
-                // Add the "selected" class to the clicked box
-                event.target.classList.add('selected');
+                    // Add the "selected" class to the clicked box
+                    event.target.classList.add('selected');
 
-                // Update the selectedBox variable
-                // selectedBox = event.target;
+                    // Update the selectedBox variable
+                    // selectedBox = event.target;
 
-                selectedBoxIndex = Array.from(boxElements).indexOf(event.target);
-                console.log("Box Index: ", selectedBoxIndex)
+                    selectedBoxIndex = Array.from(boxElements).indexOf(event.target);
+                    console.log("Box Index: ", selectedBoxIndex)
+                }
             }
         };
 
         // Function to handle keyboard key click
         const handleKeyClick = function (event) {
-            // Check if a box is selected
-            if (selectedBoxIndex !== null) {
-                // Set the inner text of the selected box to the clicked key
-                boxElements[selectedBoxIndex].textContent = event.target.textContent;
+            if (playing) {
+                // Check if a box is selected
+                if (selectedBoxIndex !== null) {
+                    // Set the inner text of the selected box to the clicked key
+                    boxElements[selectedBoxIndex].textContent = event.target.textContent;
 
-                // This big if statement is to make sure it doesn't loop back around at the end of a row.
-                if (selectedBoxIndex !== 20 && selectedBoxIndex !== 21 && selectedBoxIndex !== 22 && selectedBoxIndex !== 23 && selectedBoxIndex !== 24) {
-                    // Move to the next box to the right
-                    selectedBoxIndex = (selectedBoxIndex + 5) % boxElements.length;
+                    // This big if statement is to make sure it doesn't loop back around at the end of a row.
+                    if (selectedBoxIndex !== 20 && selectedBoxIndex !== 21 && selectedBoxIndex !== 22 && selectedBoxIndex !== 23 && selectedBoxIndex !== 24) {
+                        // Move to the next box to the right
+                        selectedBoxIndex = (selectedBoxIndex + 5) % boxElements.length;
 
-                    // Remove the old ones first
-                    boxElements.forEach(function (box) {
-                        box.classList.remove('selected');
-                    })
+                        // Remove the old ones first
+                        boxElements.forEach(function (box) {
+                            box.classList.remove('selected');
+                        })
 
-                    // Add the "selected" class to the new selected box
-                    boxElements[selectedBoxIndex].classList.add('selected');
+                        // Add the "selected" class to the new selected box
+                        boxElements[selectedBoxIndex].classList.add('selected');
+                    }
+                    console.log("Box Index: ", selectedBoxIndex)
                 }
-                console.log("Box Index: ", selectedBoxIndex)
             }
         };
 
@@ -124,11 +129,21 @@ export function InitializeWordlePage() {
             console.log(`The box is in row ${currentRow}`);
             const rowofBoxes = document.querySelectorAll(`.box${currentRow}`);
             console.log("rowofBoxes: ", rowofBoxes);
-            CheckWord(rowofBoxes);
+            playing = CheckWord(rowofBoxes);
 
-            // Select the first box in the next row
-            currentGuess += 1;
-            selectFirstBoxInRow(currentGuess);
+            if (playing) {
+
+                // Select the first box in the next row
+                if (currentGuess >= 5) {
+                    console.log("You lost");
+                    window.alert("Sorry, out of guesses. Refresh the page to try again, or return to the menu with the button at the top left.");
+                    playing = false; // Disable typing more
+                }
+                else {
+                    currentGuess += 1;
+                    selectFirstBoxInRow(currentGuess);
+                }
+            }
         };
 
         // Event listeners for keyboard stuff to work
