@@ -90,26 +90,45 @@ export function SaveData() {
 }
 
 
-export function LoadData(username) {
-    const url = `http://localhost:3000/fetchUserData?username=${username}`;
+export function LoadData() {
+    return new Promise((resolve, reject) => {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const _username = urlSearchParams.get('username');
 
-    return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(userData => {
-            console.log('User data from server:', userData);
-            // Do something with the fetched data
-            return userData;
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            // Handle errors as needed
-        });
+        if (!_username) {
+            // Reject the promise if username is not found
+            reject("Username not found in the query string");
+            return;
+        }
+
+        const url = `http://localhost:3000/fetchUserData?username=${_username}`;
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(userData => {
+                console.log('User data from server:', userData);
+                // Update the important variables based on the loaded data
+                const parsedData = JSON.parse(userData);
+                username = parsedData.Username;
+                password = parsedData.Password;
+                gold = parseInt(parsedData.Gold, 10);
+                console.log(`Username: ${username} Password: ${password} Gold: ${gold}`);
+                resolve(userData);
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                // Reject the promise with the error
+                reject(error);
+            });
+    });
 }
+
+
 
 export function ModifyGold(operation, quantity) {
     switch (operation) {

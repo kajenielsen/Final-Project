@@ -5,6 +5,19 @@ var secretWord = null;
 
 export async function InitializeMenuDomainElements() { // Wasn't sure what to name this.
     document.addEventListener('DOMContentLoaded', function () {
+        LoadData()
+            .then(userData => {
+                // Code to execute on success
+                console.log("LoadData successful:", userData);
+                let gold = GetGoldAmmount();
+                console.log("Gold: ", gold);
+            })
+            .catch(error => {
+                // Code to execute on error
+                console.error("LoadData error:", error);
+                // Handle the error or stop execution
+            });
+
         const urlSearchParams = new URLSearchParams(window.location.search);
         const username = urlSearchParams.get('username');
         const password = urlSearchParams.get('password');

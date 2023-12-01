@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
@@ -47,7 +48,7 @@ app.post('/saveData', (req, res) => {
     const { username, password, gold } = req.body;
 
     // Perform file I/O operations here
-    fs.writeFileSync(`../SaveFiles/${username}.txt`, `Username: ${username}\nPassword: ${password}\nGold: ${gold}`);
+    fs.writeFileSync(`../SaveFiles/${username}.json`, `{\n   "Username": "${username}",\n   "Password": "${password}",\n   "Gold": "${gold}"\n}`);
 
     res.json({ message: 'Data saved successfully' });
 });
@@ -60,6 +61,9 @@ app.get('/fetchUserData', (req, res) => {
     // For simplicity, let's assume you have a function that reads the data
     const userData = readUserDataFromFile(username);
 
+    // Set the Content-Type header to "application/json"
+    res.header('Content-Type', 'application/json');
+
     // Send the data back to the client
     res.json(userData);
 });
@@ -67,14 +71,12 @@ app.get('/fetchUserData', (req, res) => {
 // Example function to read user data from a file
 function readUserDataFromFile(username) {
     const fs = require('fs');
-    const path = `../SaveFiles/${username}.txt`;
+    const path = `../SaveFiles/${username}.json`;
 
     try {
         if (fs.existsSync(path)) {
           const data = fs.readFileSync(path, 'utf8');
-          // Assuming your file content is like "Password: Nielsen"
-          const password = data.split(': ')[1].trim();
-          return { username, password };
+          return JSON.parse(data);
         } else {
           console.error(`User data file not found for ${username}`);
           return { error: 'User data not found' };
