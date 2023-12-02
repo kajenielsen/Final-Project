@@ -1,5 +1,5 @@
-import { SaveData, LoadData, getRandomWord, ModifyGold, GetGoldAmmount } from "./svc.js";
-import { ColorBoxes } from "./ui.js"
+import { SaveData, LoadData, getRandomWord, ModifyGold, GetGoldAmmount, CreateNewPig, piggies, ModifyWater, GetWaterAmmount, ModifyFood, GetFoodAmmount } from "./svc.js";
+import { ColorBoxes, UpdateGoldDisplay } from "./ui.js"
 
 var secretWord = null;
 
@@ -105,6 +105,7 @@ export async function InitializeFarmDomainElements() {
             let gold = GetGoldAmmount();
             ModifyGold("set", gold);
             console.log("Gold: ", gold);
+            UpdateGoldDisplay();
         })
         .catch(error => {
             // Code to execute on error
@@ -125,7 +126,129 @@ export async function InitializeFarmDomainElements() {
         const password = urlSearchParams.get('password');
         redirectToPage(`menu.html?username=${username}&password=${password}`);
         console.log("Redirecting...");
-    });
+    }); // Buying Guinea Pigs
+    document.getElementById("BuyPiggie").addEventListener('click', function () {
+        const gold = GetGoldAmmount();
+        if (gold < 1500) {
+            window.alert("Insufficient funds to buy piggie");
+        }
+        else {
+            // Create the form
+            const form = document.createElement('form');
+            form.innerHTML = `
+            <label for="guineaPigName">Enter Guinea Pig Name:</label>
+            <input type="text" id="guineaPigName" required>
+            <button type="submit">Buy Guinea Pig</button>
+            <button type="reset">Cancel</button>
+        `;
+
+            // Add form styles if needed
+            form.style.border = '1px solid #ccc';
+            form.style.padding = '10px';
+
+            // Append the form to the document
+            const buyPiggieBody = document.getElementById("newpiggieinfo");
+            buyPiggieBody.appendChild(form);
+
+            // Handle form submission
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const guineaPigName = document.getElementById('guineaPigName').value;
+
+                if (guineaPigName) { // HERE IS WHAT TO DO IF A PIG IS PURCHASED
+                    // User entered a name, you can handle the purchase logic here
+                    window.alert(`You bought a guinea pig named ${guineaPigName}!`);
+                    ModifyGold("sub", 1500);
+                    UpdateGoldDisplay();
+                    // Remove the form from the document
+                    buyPiggieBody.removeChild(form);
+                    CreateNewPig(guineaPigName, false);
+                    console.log(piggies);
+                } else {
+                    window.alert("Please enter a name for your guinea pig.");
+                }
+            });
+            form.addEventListener('reset', function (event) {
+                event.preventDefault();
+                buyPiggieBody.removeChild(form);
+            });
+        }
+    }) // Buying Rare Piggie
+    document.getElementById("BuyRarePiggie").addEventListener('click', function () {
+        const gold = GetGoldAmmount();
+        if (gold < 2000) {
+            window.alert("Insufficient funds to buy piggie");
+        }
+        else {
+            // Create the form
+            const form = document.createElement('form');
+            form.innerHTML = `
+            <label for="guineaPigName">Enter Guinea Pig Name:</label>
+            <input type="text" id="guineaPigName" required>
+            <button type="submit">Buy Guinea Pig</button>
+            <button type="reset">Cancel</button>
+        `;
+
+            // Add form styles if needed
+            form.style.border = '1px solid #ccc';
+            form.style.padding = '10px';
+
+            // Append the form to the document
+            const buyPiggieBody = document.getElementById("newrarepiggieinfo");
+            buyPiggieBody.appendChild(form);
+
+            // Handle form submission
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const guineaPigName = document.getElementById('guineaPigName').value;
+
+                if (guineaPigName) { // HERE IS WHAT TO DO IF A PIG IS PURCHASED
+                    // User entered a name, you can handle the purchase logic here
+                    window.alert(`You bought a guinea pig named ${guineaPigName}!`);
+                    ModifyGold("sub", 2000);
+                    UpdateGoldDisplay();
+                    // Remove the form from the document
+                    buyPiggieBody.removeChild(form);
+                    CreateNewPig(guineaPigName, true);
+                    console.log(piggies);
+                } else {
+                    window.alert("Please enter a name for your guinea pig.");
+                }
+            });
+            form.addEventListener('reset', function (event) {
+                event.preventDefault();
+                buyPiggieBody.removeChild(form);
+            });
+        }
+    }) // Buying Water
+    document.getElementById("BuyWater").addEventListener('click', function () {
+        event.preventDefault();
+        const gold = GetGoldAmmount();
+        if (gold < 100) {
+            window.alert("Insufficient funds to buy water bottle");
+        }
+        else {
+            console.log("Bought water");
+            ModifyWater("add", 1);
+            ModifyGold("sub", 100);
+            UpdateGoldDisplay();
+            window.alert(`Purchased a water bottle! Now you have ${GetWaterAmmount()}`);
+        }
+    }) // Buying Food
+    document.getElementById("BuyFood").addEventListener('click', function () {
+        event.preventDefault();
+        const gold = GetGoldAmmount();
+        if (gold < 500) {
+            window.alert("Insufficient funds to buy magic food bowl");
+        }
+        else {
+            console.log("Bought food");
+            ModifyFood("add", 1);
+            ModifyGold("sub", 500);
+            UpdateGoldDisplay();
+            window.alert(`Purchased a magic food bowl! Now you have ${GetFoodAmmount()}`);
+        }
+    })
 }
 
 function redirectToPage(url) {

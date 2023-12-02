@@ -269,3 +269,12 @@ html {
     color: #ffffff;
     border-color: #ffffff;
 }
+
+#GoldAmt {
+    color: green;
+}
+
+#GoldNum {
+    color: gold;
+    font-weight: bolder;
+}

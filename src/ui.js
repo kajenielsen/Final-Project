@@ -1,5 +1,5 @@
 import { CurrentWordleRow, CheckWord } from "./domain.js";
-import { getRandomWord, GuineaPig } from "./svc.js";
+import { GetGoldAmmount, getRandomWord, GuineaPig } from "./svc.js";
 
 // For description that toggles on Wordle Page
 export function toggleHowToPlay() {
@@ -371,4 +371,10 @@ export function ColorBoxes(rowofBoxes, boxColors) { // Colors the Wordle boxes a
 
 function GeneratePig(GuineaPig) {
 
+}
+
+export function UpdateGoldDisplay() {
+    const goldDisplay = document.getElementById('GoldNum');
+    const currentGold = GetGoldAmmount();
+    goldDisplay.textContent = currentGold.toString();
 }

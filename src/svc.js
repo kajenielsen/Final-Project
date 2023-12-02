@@ -1,4 +1,4 @@
-import {getRandomInt} from "./domain.js"
+import { getRandomInt } from "./domain.js"
 const wordList = [ // These are the words for Wordle
     "Above", "Acute", "Alive", "Alone", "Angry", "Aware", "Awful", "Basic", "Black", "Blind", "Brave", "Brief", "Broad", "Brown",
     "Cheap", "Chief", "Civil", "Clean", "Clear", "Close", "Crazy", "Daily", "Dirty", "Early", "Empty", "Equal", "Exact", "Extra",
@@ -62,9 +62,9 @@ const pigPics = [pigPicA, pigPicB, pigPicC, pigPicD, pigPicE]
 var username;
 var password;
 var gold = 0;
-var piggies = [];
-var numOfWaterBottles;
-var numOfFoodBowls;
+export var piggies = [];
+var numOfWaterBottles = 0;
+var numOfFoodBowls = 0;
 
 // Guinea Pig Class
 
@@ -97,7 +97,7 @@ export function SaveData() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password, gold }),
+                body: JSON.stringify({ username, password, gold, numOfFoodBowls, numOfWaterBottles, piggies }),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -142,7 +142,13 @@ export function LoadData() {
                 username = userData.Username;
                 password = userData.Password;
                 gold = parseInt(userData.Gold, 10);
-                console.log(`Username: ${username} Password: ${password} Gold: ${gold}`);
+                numOfFoodBowls = parseInt(userData.numOfFoodBowls, 10);
+                numOfWaterBottles = parseInt(userData.numOfWaterBottles, 10);
+                // Convert each pig object in the array to a GuineaPig instance
+                piggies = userData.Piggies.map(pig => new GuineaPig(pig.name, pig.rarity, pig.personality, pig.image));
+                console.log(`Username: ${username} Password: ${password} Gold: ${gold} Food: ${numOfFoodBowls} Water: ${numOfWaterBottles} Piggies: ${JSON.stringify(piggies)}`);
+                console.log(`Piggies array has: ${JSON.stringify(piggies)}`);
+                console.log("Test for rarity:", piggies[1].rarity);
                 resolve(userData);
             })
             .catch(error => {
@@ -171,13 +177,63 @@ export function ModifyGold(operation, quantity) {
     console.log("Gold: ", gold);
 }
 
+export function ModifyWater(operation, quantity) {
+    switch (operation) {
+        case "add":
+            numOfWaterBottles += quantity;
+            break;
+        case "sub":
+            numOfWaterBottles -= quantity;
+            break;
+        case "set":
+            numOfWaterBottles = quantity;
+            break;
+        default:
+            console.log(`ModifyWater cannot use operation: ${operation}`);
+            break;
+    }
+    console.log("Water: ", numOfWaterBottles);
+}
+
+export function ModifyFood(operation, quantity) {
+    switch (operation) {
+        case "add":
+            numOfFoodBowls += quantity;
+            break;
+        case "sub":
+            numOfFoodBowls -= quantity;
+            break;
+        case "set":
+            numOfFoodBowls = quantity;
+            break;
+        default:
+            console.log(`ModifyFood cannot use operation: ${operation}`);
+            break;
+    }
+    console.log("Water: ", numOfFoodBowls);
+}
+
 export function GetGoldAmmount() {
     return gold;
 }
 
-export function CreateNewPig(chosenName) {
+export function GetWaterAmmount() {
+    return numOfWaterBottles;
+}
+
+export function GetFoodAmmount() {
+    return numOfFoodBowls;
+}
+
+export function CreateNewPig(chosenName, rarePurchase) {
     const newName = chosenName;
-    _rarity = getRandomInt(1, 11);
+    var _rarity = 1;
+    if (rarePurchase) {
+        _rarity = getRandomInt(6, 11);
+    }
+    else {
+        _rarity = getRandomInt(1, 11);
+    }
     const imageIndex = getRandomInt(0, 5);
     const _image = pigPics[imageIndex];
     const personalityIndex = getRandomInt(0, personalities.length);
