@@ -66,6 +66,19 @@ export async function InitializeWordleDomainElements() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const username = urlSearchParams.get('username');
     const password = urlSearchParams.get('password');
+    LoadData()
+        .then(userData => {
+            // Code to execute on success
+            console.log("LoadData successful:", userData);
+            let gold = GetGoldAmmount();
+            ModifyGold("set", gold);
+            console.log("Gold: ", gold);
+        })
+        .catch(error => {
+            // Code to execute on error
+            console.error("LoadData error:", error);
+            // Handle the error or stop execution
+        });
     document.querySelector('.returntohome').addEventListener('click', async function () {
         event.preventDefault();
         try {
@@ -85,6 +98,19 @@ export async function InitializeWordleDomainElements() {
 }
 
 export async function InitializeFarmDomainElements() {
+    LoadData()
+        .then(userData => {
+            // Code to execute on success
+            console.log("LoadData successful:", userData);
+            let gold = GetGoldAmmount();
+            ModifyGold("set", gold);
+            console.log("Gold: ", gold);
+        })
+        .catch(error => {
+            // Code to execute on error
+            console.error("LoadData error:", error);
+            // Handle the error or stop execution
+        });
     document.querySelector('.returntohome').addEventListener('click', async function () {
         event.preventDefault();
         try {
@@ -170,4 +196,11 @@ export function CheckWord(rowofBoxes) { // Checks to see if the right word was c
 function CalculateGoldWon() {
     // Implement More Later
     return 100;
+}
+
+// Generate a random integer between min (inclusive) and max (exclusive)
+export function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }

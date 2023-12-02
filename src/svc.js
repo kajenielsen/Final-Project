@@ -1,3 +1,4 @@
+import {getRandomInt} from "./domain.js"
 const wordList = [ // These are the words for Wordle
     "Above", "Acute", "Alive", "Alone", "Angry", "Aware", "Awful", "Basic", "Black", "Blind", "Brave", "Brief", "Broad", "Brown",
     "Cheap", "Chief", "Civil", "Clean", "Clear", "Close", "Crazy", "Daily", "Dirty", "Early", "Empty", "Equal", "Exact", "Extra",
@@ -46,10 +47,35 @@ const wordList = [ // These are the words for Wordle
     "Thwap", "Viola", "Vivat", "Wacko", "Wahey", "Wilma", "Wirra", "Woops", "Wowie", "Yecch", "Yeeha", "Yeesh", "Yowch", "Zowie"
 ]
 
+// Important Constants
+const pigPicA = "../Images/piggieA.png";
+const pigPicB = "../Images/piggieB.png";
+const pigPicC = "../Images/piggieC.png";
+const pigPicD = "../Images/piggieD.png";
+const pigPicE = "../Images/piggieE.png";
+
+const personalities = ["sassy", "shy", "angry", "scared", "chubby", "smart", "kind", "potato", "dumb", "sweet"]
+
+const pigPics = [pigPicA, pigPicB, pigPicC, pigPicD, pigPicE]
+
 // Important Variables:
 var username;
 var password;
 var gold = 0;
+var piggies = [];
+var numOfWaterBottles;
+var numOfFoodBowls;
+
+// Guinea Pig Class
+
+export class GuineaPig {
+    constructor(name, rarity, personality, image) {
+        this.name = name;
+        this.rarity = rarity;
+        this.personality = personality;
+        this.image = image;
+    }
+}
 
 export function getRandomWord() {
     const randomIndex = Math.floor(Math.random() * wordList.length);
@@ -73,15 +99,15 @@ export function SaveData() {
                 },
                 body: JSON.stringify({ username, password, gold }),
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                resolve(data); // Resolve the promise on success
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                reject(error); // Reject the promise on error
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    resolve(data); // Resolve the promise on success
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    reject(error); // Reject the promise on error
+                });
         } else {
             console.log("No user logged in");
             reject("No user logged in"); // Reject the promise if no user is logged in
@@ -113,10 +139,9 @@ export function LoadData() {
             .then(userData => {
                 console.log('User data from server:', userData);
                 // Update the important variables based on the loaded data
-                const parsedData = JSON.parse(userData);
-                username = parsedData.Username;
-                password = parsedData.Password;
-                gold = parseInt(parsedData.Gold, 10);
+                username = userData.Username;
+                password = userData.Password;
+                gold = parseInt(userData.Gold, 10);
                 console.log(`Username: ${username} Password: ${password} Gold: ${gold}`);
                 resolve(userData);
             })
@@ -128,8 +153,6 @@ export function LoadData() {
     });
 }
 
-
-
 export function ModifyGold(operation, quantity) {
     switch (operation) {
         case "add":
@@ -137,6 +160,9 @@ export function ModifyGold(operation, quantity) {
             break;
         case "sub":
             gold -= quantity;
+            break;
+        case "set":
+            gold = quantity;
             break;
         default:
             console.log(`ModifyGold cannot use operation: ${operation}`);
@@ -147,4 +173,16 @@ export function ModifyGold(operation, quantity) {
 
 export function GetGoldAmmount() {
     return gold;
+}
+
+export function CreateNewPig(chosenName) {
+    const newName = chosenName;
+    _rarity = getRandomInt(1, 11);
+    const imageIndex = getRandomInt(0, 5);
+    const _image = pigPics[imageIndex];
+    const personalityIndex = getRandomInt(0, personalities.length);
+    const _personality = personalities[personalityIndex];
+    const guineaPig = new GuineaPig(newName, _rarity, _personality, _image);
+    piggies.push(guineaPig);
+    console.log("New guinea pig created: ", guineaPig);
 }

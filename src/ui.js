@@ -1,5 +1,5 @@
 import { CurrentWordleRow, CheckWord } from "./domain.js";
-import { getRandomWord } from "./svc.js";
+import { getRandomWord, GuineaPig } from "./svc.js";
 
 // For description that toggles on Wordle Page
 export function toggleHowToPlay() {
@@ -367,4 +367,8 @@ export function ColorBoxes(rowofBoxes, boxColors) { // Colors the Wordle boxes a
         box.classList.remove('green', 'yellow', 'red');
         box.classList.add(color);
     });
+}
+
+function GeneratePig(GuineaPig) {
+
 }
