@@ -1,5 +1,5 @@
 import { CurrentWordleRow, CheckWord, DetermineRarestPiggies, BaseWordleWinnings } from "./domain.js";
-import { GetGoldAmmount, getRandomWord, GetWaterAmmount, GetFoodAmmount, GuineaPig, piggies } from "./svc.js";
+import { GetGoldAmmount, getRandomWord, GetWaterAmmount, GetFoodAmmount, GuineaPig, piggies, GetPassword, LoadData} from "./svc.js";
 
 // For description that toggles on Wordle Page
 export function toggleHowToPlay() {
@@ -129,7 +129,7 @@ export function InitializeWordlePage() {
             console.log(`The box is in row ${currentRow}`);
             const rowofBoxes = document.querySelectorAll(`.box${currentRow}`);
             console.log("rowofBoxes: ", rowofBoxes);
-            playing = CheckWord(rowofBoxes);
+            playing = CheckWord(rowofBoxes, currentGuess);
 
             if (playing) {
 
@@ -345,7 +345,7 @@ export function RandomizePigPositions(container) {
 // Menu Box Popup
 
 export function ToggleLoginBox() {
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', async function () {
         const loginBoxContainer = document.getElementById('popup-container');
         const logoutButtonContainer = document.getElementById('logout-button-container');
         const WelcomeContainer = document.getElementById('UserWelcome');
@@ -356,11 +356,28 @@ export function ToggleLoginBox() {
         const password = urlSearchParams.get('password');
         console.log("password: ", password);
         var isLoggedIn;
+        await LoadData()
+            .then(userData => {
+                // Code to execute on success
+                console.log("LoadData successful:", userData);
+                let gold = GetGoldAmmount();
+                console.log("Gold: ", gold);
+            })
+            .catch(error => {
+                // Code to execute on error
+                console.error("LoadData error:", error);
+                // Handle the error or stop execution
+            });
         if (username === null || password === null) {
             isLoggedIn = false;
         }
         else {
-            isLoggedIn = true;
+            // Check if the entered password matches the stored password
+            const storedPassword = GetPassword();
+            isLoggedIn = storedPassword !== null && storedPassword === password;
+            if (isLoggedIn === false) {
+                window.alert("Password is incorrect");
+            }
         }
         if (isLoggedIn) {
             logoutButtonContainer.style.display = 'block';
@@ -499,5 +516,11 @@ function UpdateWinningsStat() {
     const winningsContainer = document.getElementById("BaseWordleWins");
     const goldPerGame = BaseWordleWinnings();
     winningsContainer.textContent = `${goldPerGame} Gold`;
+}
+
+export function UpdateWinningsHeader() {
+    const winningsContainer = document.getElementById("WinningsBase");
+    const goldPerGame = BaseWordleWinnings();
+    winningsContainer.textContent = `You will win: ${goldPerGame} Gold X Remaining Guesses`;
 }
 

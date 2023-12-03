@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@600&display=swap');
 body {
     font-family: 'Arial', sans-serif;
     /* text-align: center;
@@ -15,6 +16,8 @@ body {
 h1 {
     text-align: center;
     margin-top: 20px;
+    font-weight: bolder;
+    font-size: 35px;
     /* Adjust top margin as needed */
 }
 
@@ -27,6 +30,18 @@ h3 {
 
 h4 {
     text-align: center;
+    font-family: 'Vina Sans', sans-serif;
+}
+
+#WinningsBase {
+    font-size: 15px;
+    margin: 0 auto; /* Center the element horizontally */
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    width: 20%;
+    font-family: 'Bitter', serif;
+    box-shadow: 3 3 30px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
 .GuessButton {
@@ -69,7 +84,7 @@ h4 {
     justify-content: center;
     display: grid;
     grid-template-columns: repeat(5, 50px);
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 .wordlekeyboard {

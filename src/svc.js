@@ -242,3 +242,7 @@ export function CreateNewPig(chosenName, rarePurchase) {
     piggies.push(guineaPig);
     console.log("New guinea pig created: ", guineaPig);
 }
+
+export function GetPassword() {
+    return password;
+}

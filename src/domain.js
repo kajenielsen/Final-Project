@@ -1,5 +1,5 @@
 import { SaveData, LoadData, getRandomWord, ModifyGold, GetGoldAmmount, CreateNewPig, piggies, ModifyWater, GetWaterAmmount, ModifyFood, GetFoodAmmount } from "./svc.js";
-import { ColorBoxes, UpdateGoldDisplay, UpdateFoodStats, UpdateWaterStats, UpdateRarityList, DynamicallyRenderPiggies, InitializeFarmPage } from "./ui.js"
+import { ColorBoxes, UpdateGoldDisplay, UpdateFoodStats, UpdateWaterStats, UpdateRarityList, DynamicallyRenderPiggies, InitializeFarmPage, UpdateWinningsHeader } from "./ui.js"
 
 var secretWord = null;
 
@@ -73,6 +73,7 @@ export async function InitializeWordleDomainElements() {
             let gold = GetGoldAmmount();
             ModifyGold("set", gold);
             console.log("Gold: ", gold);
+            UpdateWinningsHeader();
         })
         .catch(error => {
             // Code to execute on error
@@ -306,7 +307,7 @@ export function CurrentWordleRow(boxClicked) {
     return null;
 }
 
-export function CheckWord(rowofBoxes) { // Checks to see if the right word was chosen
+export async function CheckWord(rowofBoxes, currentGuess) { // Checks to see if the right word was chosen
     const letters = Array.from(rowofBoxes).map(box => (box.textContent || '').trim());
     const guessedWord = letters.join('');
     const secretLetters = Array.from(secretWord);
@@ -315,6 +316,7 @@ export function CheckWord(rowofBoxes) { // Checks to see if the right word was c
     console.log("Guessed Word: ", guessedWord);
     console.log("Secret Letters: ", secretLetters);
     console.log("Secret Word: ", secretWord);
+    console.log("Row of Boxes: ", rowofBoxes);
 
     if (guessedWord === secretWord) { // The word is correct
         // Initiate Victory Sequence. Implement Later.
@@ -322,10 +324,28 @@ export function CheckWord(rowofBoxes) { // Checks to see if the right word was c
         var boxColors = ['green', 'green', 'green', 'green', 'green'];
         ColorBoxes(rowofBoxes, boxColors);
 
-        setTimeout(function () { // This is to give the boxes time to color before the window alert.
-            const goldWon = CalculateGoldWon();
-            ModifyGold("add", 100);
-            window.alert(`Congratulations! You won ${goldWon} gold! Refresh to play again or return to menu with the button in the top left.`)
+        // Hide the guess button
+        const guessButton = document.querySelector('.GuessButton');
+        guessButton.style.display = 'none';
+        guessButton.disabled = true;
+        const goldWon = CalculateGoldWon(currentGuess);
+        ModifyGold("add", goldWon);
+
+        setTimeout(async function () { // This is to give the boxes time to color before the window alert.
+
+            window.alert(`Congratulations! You won ${goldWon} gold!`);
+            try {
+                const data = await SaveData();
+            } catch (error) {
+                // Code to execute on SaveData error
+                console.error("SaveData error:", error);
+                // Handle the error or stop execution
+            }
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const username = urlSearchParams.get('username');
+            const password = urlSearchParams.get('password');
+            redirectToPage(`menu.html?username=${username}&password=${password}`);
+            console.log("Redirecting...");
             // Maybe you can pretty this up with sweet alert later.
         }, 300);
 
@@ -353,9 +373,30 @@ export function CheckWord(rowofBoxes) { // Checks to see if the right word was c
     }
 }
 
-function CalculateGoldWon() {
-    // Implement More Later
-    return 100;
+function CalculateGoldWon(currentGuess) {
+    const _baseWinnings = BaseWordleWinnings();
+    console.log(`CalculateGoldWon has currentGuess as ${currentGuess}`);
+
+    switch (currentGuess) {
+        case 1:
+            return _baseWinnings * 7;
+            break;
+        case 2:
+            return _baseWinnings * 4;
+            break;
+        case 3:
+            return _baseWinnings * 3
+            break;
+        case 4:
+            return _baseWinnings * 2;
+            break;
+        case 5:
+            return _baseWinnings;
+            break;
+        default:
+            return 100;
+            break;
+    }
 }
 
 // Generate a random integer between min (inclusive) and max (exclusive)
