@@ -11,16 +11,16 @@ app.use(cors());
 
 const users = [];
 
-app.post('/register', (req, res) => {
-    const { username, password } = req.body;
+// app.post('/register', (req, res) => {
+//     const { username, password } = req.body;
 
-    if (users.some((user) => user.username === username)) {
-        return res.status(400).json({ error: 'Username already exists' });
-    }
+//     if (users.some((user) => user.username === username)) {
+//         return res.status(400).json({ error: 'Username already exists' });
+//     }
 
-    users.push({ username, password });
-    res.json({ message: 'Registration successful' });
-});
+//     users.push({ username, password });
+//     res.json({ message: 'Registration successful' });
+// });
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
@@ -87,4 +87,18 @@ function readUserDataFromFile(username) {
         return { error: 'Failed to read user data' };
       }
 }
+
+// Creating a new account
+app.post('/register', (req, res) => {
+    const { username, password } = req.body;
+
+    if (users.some((user) => user.username === username)) {
+        return res.status(400).json({ error: 'Username already exists' });
+    }
+
+    users.push({ username, password });
+    fs.writeFileSync(`../SaveFiles/${username}.json`, `{\n   "Username": "${username}",\n   "Password": "${password}",\n   "Gold": 0,\n   "numOfFoodBowls": 0,\n   "numOfWaterBottles": 0,\n   "Piggies": null\n}`);
+    res.json({ message: 'Registration successful' });
+});
+
 

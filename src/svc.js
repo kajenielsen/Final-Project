@@ -141,14 +141,31 @@ export function LoadData() {
                 // Update the important variables based on the loaded data
                 username = userData.Username;
                 password = userData.Password;
-                gold = parseInt(userData.Gold, 10);
-                numOfFoodBowls = parseInt(userData.numOfFoodBowls, 10);
-                numOfWaterBottles = parseInt(userData.numOfWaterBottles, 10);
+                if (userData.gold === null) {
+                    gold = 0;
+                }
+                else {
+                    gold = parseInt(userData.Gold, 10);
+                }
+                if (userData.numOfFoodBowls === null) {
+                    numOfFoodBowls = 0;
+                }
+                else {
+                    numOfFoodBowls = parseInt(userData.numOfFoodBowls, 10);
+                }
+                if (userData.numOfWaterBottles === null) {
+                    numOfWaterBottles = 0;
+                }
+                else {
+                    numOfWaterBottles = parseInt(userData.numOfWaterBottles, 10);
+                }
+
                 // Convert each pig object in the array to a GuineaPig instance
-                piggies = userData.Piggies.map(pig => new GuineaPig(pig.name, pig.rarity, pig.personality, pig.image));
-                console.log(`Username: ${username} Password: ${password} Gold: ${gold} Food: ${numOfFoodBowls} Water: ${numOfWaterBottles} Piggies: ${JSON.stringify(piggies)}`);
-                console.log(`Piggies array has: ${JSON.stringify(piggies)}`);
-                console.log("Test for rarity:", piggies[1].rarity);
+                if (userData.Piggies.length > 0) {
+                    piggies = userData.Piggies.map(pig => new GuineaPig(pig.name, pig.rarity, pig.personality, pig.image));
+                    console.log(`Username: ${username} Password: ${password} Gold: ${gold} Food: ${numOfFoodBowls} Water: ${numOfWaterBottles} Piggies: ${JSON.stringify(piggies)}`);
+                    console.log(`Piggies array has: ${JSON.stringify(piggies)}`);
+                }
                 resolve(userData);
             })
             .catch(error => {

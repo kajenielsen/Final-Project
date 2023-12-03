@@ -110,6 +110,7 @@ h3 {
     display: flex;
     justify-content: right;
     margin: 10px;
+    height: 20px;
 }
 
 /* Description box styles */

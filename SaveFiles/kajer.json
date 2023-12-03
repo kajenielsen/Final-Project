@@ -1,0 +1,21 @@
+{
+   "Username": "kajer",
+   "Password": "pig",
+   "Gold": "2032",
+   "numOfFoodBowls": "2",
+   "numOfWaterBottles": "2",
+   "Piggies": [
+  {
+    "name": "Punxi",
+    "rarity": 7,
+    "personality": "shy",
+    "image": "../Images/piggieE.png"
+  },
+  {
+    "name": "Skuffles",
+    "rarity": 6,
+    "personality": "potato",
+    "image": "../Images/piggieA.png"
+  }
+]
+}

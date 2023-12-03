@@ -5,6 +5,12 @@ var secretWord = null;
 
 export async function InitializeMenuDomainElements() { // Wasn't sure what to name this.
     document.addEventListener('DOMContentLoaded', function () {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const username = urlSearchParams.get('username');
+        const password = urlSearchParams.get('password');
+        if (username === null && password === null) {
+            return;
+        }
         LoadData()
             .then(userData => {
                 // Code to execute on success
@@ -18,9 +24,7 @@ export async function InitializeMenuDomainElements() { // Wasn't sure what to na
                 // Handle the error or stop execution
             });
 
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const username = urlSearchParams.get('username');
-        const password = urlSearchParams.get('password');
+        
         console.log(`Domain has username and password as ${username} and ${password}, and gold as ${GetGoldAmmount()}`);
         // Wordle and Farm link click events
         document.querySelector('.wordlebutton').addEventListener('click', async function () {
@@ -312,11 +316,11 @@ export async function CheckWord(rowofBoxes, currentGuess) { // Checks to see if 
     const guessedWord = letters.join('');
     const secretLetters = Array.from(secretWord);
 
-    console.log("Letters: ", letters); // Console logs for debugging. Delete later.
-    console.log("Guessed Word: ", guessedWord);
-    console.log("Secret Letters: ", secretLetters);
-    console.log("Secret Word: ", secretWord);
-    console.log("Row of Boxes: ", rowofBoxes);
+    // console.log("Letters: ", letters); // Console logs for debugging. Delete later.
+    // console.log("Guessed Word: ", guessedWord);
+    // console.log("Secret Letters: ", secretLetters);
+    // console.log("Secret Word: ", secretWord);
+    // console.log("Row of Boxes: ", rowofBoxes);
 
     if (guessedWord === secretWord) { // The word is correct
         // Initiate Victory Sequence. Implement Later.
@@ -442,7 +446,7 @@ export function BaseWordleWinnings() { // BALANCE GAME DIFFICULTY HERE
     const _pigQuantity = piggies.length;
 
     // Find the rarest value
-    let highestRarityValue = 1;
+    let highestRarityValue = 0;
     if (_pigQuantity > 0) {
         // Find the piggie with the highest rarity
         const highestRarityPiggie = piggies.reduce((prev, current) => {
@@ -456,7 +460,7 @@ export function BaseWordleWinnings() { // BALANCE GAME DIFFICULTY HERE
         console.log("Rarest piggie rarity value:", highestRarityValue);
 
     } else {
-        highestRarityValue = 1;
+        highestRarityValue = 0;
     }
 
     let baseWordleWinnings = 100;
