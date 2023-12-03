@@ -1,5 +1,5 @@
 import { SaveData, LoadData, getRandomWord, ModifyGold, GetGoldAmmount, CreateNewPig, piggies, ModifyWater, GetWaterAmmount, ModifyFood, GetFoodAmmount } from "./svc.js";
-import { ColorBoxes, UpdateGoldDisplay } from "./ui.js"
+import { ColorBoxes, UpdateGoldDisplay, UpdateFoodStats, UpdateWaterStats, UpdateRarityList, DynamicallyRenderPiggies, InitializeFarmPage } from "./ui.js"
 
 var secretWord = null;
 
@@ -105,7 +105,14 @@ export async function InitializeFarmDomainElements() {
             let gold = GetGoldAmmount();
             ModifyGold("set", gold);
             console.log("Gold: ", gold);
+            // Dynamically Render the Piggies
+            console.log("Domain is initializing farm page");
+            InitializeFarmPage();
             UpdateGoldDisplay();
+            //Set Food and Water Data
+            UpdateFoodStats();
+            UpdateWaterStats();
+            UpdateRarityList();
         })
         .catch(error => {
             // Code to execute on error
@@ -129,8 +136,13 @@ export async function InitializeFarmDomainElements() {
     }); // Buying Guinea Pigs
     document.getElementById("BuyPiggie").addEventListener('click', function () {
         const gold = GetGoldAmmount();
-        if (gold < 1500) {
-            window.alert("Insufficient funds to buy piggie");
+        if (gold < 1500 || SafeToBuyPiggie() === false) {
+            if (SafeToBuyPiggie() === false) {
+                window.alert("There will not be sufficient food and water to care for a new piggie. Cannot purchase.");
+            }
+            else {
+                window.alert("Insufficient funds to buy piggie");
+            }
         }
         else {
             // Create the form
@@ -163,6 +175,7 @@ export async function InitializeFarmDomainElements() {
                     // Remove the form from the document
                     buyPiggieBody.removeChild(form);
                     CreateNewPig(guineaPigName, false);
+                    UpdateRarityList();
                     console.log(piggies);
                 } else {
                     window.alert("Please enter a name for your guinea pig.");
@@ -210,6 +223,7 @@ export async function InitializeFarmDomainElements() {
                     // Remove the form from the document
                     buyPiggieBody.removeChild(form);
                     CreateNewPig(guineaPigName, true);
+                    UpdateRarityList();
                     console.log(piggies);
                 } else {
                     window.alert("Please enter a name for your guinea pig.");
@@ -232,6 +246,7 @@ export async function InitializeFarmDomainElements() {
             ModifyWater("add", 1);
             ModifyGold("sub", 100);
             UpdateGoldDisplay();
+            UpdateWaterStats();
             window.alert(`Purchased a water bottle! Now you have ${GetWaterAmmount()}`);
         }
     }) // Buying Food
@@ -246,6 +261,7 @@ export async function InitializeFarmDomainElements() {
             ModifyFood("add", 1);
             ModifyGold("sub", 500);
             UpdateGoldDisplay();
+            UpdateFoodStats();
             window.alert(`Purchased a magic food bowl! Now you have ${GetFoodAmmount()}`);
         }
     })
@@ -327,3 +343,36 @@ export function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
+// Determines if it is safe to buy a new piggie based on the food and water available
+function SafeToBuyPiggie() {
+    const dailyWaterConsumption = piggies.length * 5;
+    const dailyWaterAvailable = GetWaterAmmount() * 20;
+    const dailyFoodConsumption = piggies.length * 5;
+    const dailyFoodAvailable = GetFoodAmmount() * 10;
+
+    if (dailyWaterConsumption + 5 > dailyWaterAvailable || dailyFoodConsumption + 5 > dailyFoodAvailable) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+export function DetermineRarestPiggies() {
+    const sortedPiggies = piggies.sort((a, b) => b.rarity - a.rarity);
+
+    const rarestPiggies = [];
+    for (let i = 0; i < 3; i++) {
+        if (sortedPiggies[i]) {
+            // If there is a piggy at this position, add its name to the array
+            rarestPiggies.push(sortedPiggies[i].name);
+        } else {
+            // If no piggy at this position, add an empty string
+            rarestPiggies.push("");
+        }
+    }
+
+    return rarestPiggies;
+}
+

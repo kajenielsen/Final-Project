@@ -1,8 +1,45 @@
 {
    "Username": "Kaje3",
    "Password": "Yahoo!",
-   "Gold": "6500",
-   "numOfFoodBowls": "2",
+   "Gold": "500",
+   "numOfFoodBowls": "6",
    "numOfWaterBottles": "3",
-   "Piggies": [{"name":"Boo","rarity":10,"personality":"kind","image":"../Images/piggieC.png"},{"name":"Skuffles","rarity":3,"personality":"smart","image":"../Images/piggieC.png"},{"name":"Ben","rarity":1,"personality":"sassy","image":"../Images/piggieB.png"},{"name":"Squeedle","rarity":6,"personality":"angry","image":"../Images/piggieD.png"},{"name":"Bill","rarity":8,"personality":"angry","image":"../Images/piggieB.png"}]
+   "Piggies": [
+  {
+    "name": "Boo",
+    "rarity": 10,
+    "personality": "kind",
+    "image": "../Images/piggieC.png"
+  },
+  {
+    "name": "Bill",
+    "rarity": 8,
+    "personality": "angry",
+    "image": "../Images/piggieB.png"
+  },
+  {
+    "name": "Squeedle",
+    "rarity": 6,
+    "personality": "angry",
+    "image": "../Images/piggieD.png"
+  },
+  {
+    "name": "Skuffles",
+    "rarity": 3,
+    "personality": "smart",
+    "image": "../Images/piggieC.png"
+  },
+  {
+    "name": "Ben",
+    "rarity": 1,
+    "personality": "sassy",
+    "image": "../Images/piggieB.png"
+  },
+  {
+    "name": "Bumble",
+    "rarity": 1,
+    "personality": "shy",
+    "image": "../Images/piggieA.png"
+  }
+]
 }

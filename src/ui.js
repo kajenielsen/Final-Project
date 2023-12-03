@@ -1,5 +1,5 @@
-import { CurrentWordleRow, CheckWord } from "./domain.js";
-import { GetGoldAmmount, getRandomWord, GuineaPig } from "./svc.js";
+import { CurrentWordleRow, CheckWord, DetermineRarestPiggies } from "./domain.js";
+import { GetGoldAmmount, getRandomWord, GetWaterAmmount, GetFoodAmmount, GuineaPig, piggies } from "./svc.js";
 
 // For description that toggles on Wordle Page
 export function toggleHowToPlay() {
@@ -165,87 +165,113 @@ export function InitializeWordlePage() {
 // DRAGGABLE GUINEA PIGS
 
 export function InitializeFarmPage() {
-    document.addEventListener('DOMContentLoaded', function () {
-        // Dynamic Owner Banner
-        SetOwnerBanner();
+    // document.addEventListener('DOMContentLoaded', function () {
+    console.log("UI For Farm Loaded");
 
-        // Grabbing Drag Container Element
-        const dragContainer = document.getElementById('dragContainer');
+    DynamicallyRenderPiggies();
 
-        // Additional variable to keep track of the dragged element
-        let draggedElement = null;
+    // Dynamic Owner Banner
+    SetOwnerBanner();
 
-        // Event listeners for drag and drop
-        const handleDragStart = function (e) {
-            e.dataTransfer.setData('text/plain', e.target.id);
-            draggedElement = e.target;
-        };
+    // Grabbing Drag Container Element
+    const dragContainer = document.getElementById('dragContainer');
 
-        const handleDragOver = function (e) {
-            e.preventDefault();
-            dragContainer.classList.add('dragOver');
-        };
+    // Additional variable to keep track of the dragged element
+    let draggedElement = null;
 
-        const handleDragLeave = function () {
+    // Event listeners for drag and drop
+    const handleDragStart = function (e) {
+        e.dataTransfer.setData('text/plain', e.target.id);
+        draggedElement = e.target;
+    };
+
+    const handleDragOver = function (e) {
+        e.preventDefault();
+        dragContainer.classList.add('dragOver');
+    };
+
+    const handleDragLeave = function () {
+        dragContainer.classList.remove('dragOver');
+    };
+
+    const handleDrop = function (e) {
+        e.preventDefault();
+        if (draggedElement) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            // Calculate the offset dynamically based on the pig's size
+            const offsetX = draggedElement.clientWidth / 2;
+            const offsetY = draggedElement.clientHeight * 1.5;
+
+            // // Adjust the position based on the offset of the mouse click based on ID // Giving me issues
+            // let offsetX = 0;
+            // let offsetY = 0;
+            // if (draggedElement.id === 'pigA') { /* Different pigs need different offsets due to different crop sizings */
+            //     offsetX = draggedElement.clientWidth - 50;
+            //     offsetY = draggedElement.clientHeight + 100;
+            // } else if (draggedElement.id === 'pigB') {
+            //     offsetX = draggedElement.clientWidth - 50;
+            //     offsetY = draggedElement.clientHeight + 100;
+            // } else if (draggedElement.id === 'pigC') {
+            //     offsetX = draggedElement.clientWidth - 50;
+            //     offsetY = draggedElement.clientHeight + 100;
+            // } else if (draggedElement.id === 'pigD') {
+            //     offsetX = draggedElement.clientWidth - 50;
+            //     offsetY = draggedElement.clientHeight + 100;
+            // } else if (draggedElement.id === 'pigE') {
+            //     offsetX = draggedElement.clientWidth - 50;
+            //     offsetY = draggedElement.clientHeight + 100;
+            // }
+
+            // Dropped in specified spot
+            draggedElement.style.position = 'absolute';
+            draggedElement.style.left = `${mouseX - offsetX}px`;
+            draggedElement.style.top = `${mouseY - offsetY}px`;
+
+            // Explicitly set width and height to maintain consistency
+            draggedElement.style.width = `${draggedElement.clientWidth}px`;
+            draggedElement.style.height = `${draggedElement.clientHeight}px`;
+
+            draggedElement = null;
+
             dragContainer.classList.remove('dragOver');
-        };
+        }
+    };
 
-        const handleDrop = function (e) {
-            e.preventDefault();
-            if (draggedElement) {
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
+    const handlePigClicked = function (e) { // piggie CLICKED functionality
+        e.preventDefault();
+        // Change the Piggie Stats based on the pig clicked
+        const clickedPigId = e.target.parentNode.id;
+        console.log("Clicked Pig Id: ", clickedPigId);
 
-                // Calculate the offset dynamically based on the pig's size
-                const offsetX = draggedElement.clientWidth / 2;
-                const offsetY = draggedElement.clientHeight * 1.5;
+        // Convert NodeList to array using Array.from
+        const piggieArray = piggies;
+        console.log("piggiesArray contains: ", piggieArray);
+        console.log("piggies contains: ", piggies);
 
-                // // Adjust the position based on the offset of the mouse click based on ID // Giving me issues
-                // let offsetX = 0;
-                // let offsetY = 0;
-                // if (draggedElement.id === 'pigA') { /* Different pigs need different offsets due to different crop sizings */
-                //     offsetX = draggedElement.clientWidth - 50;
-                //     offsetY = draggedElement.clientHeight + 100;
-                // } else if (draggedElement.id === 'pigB') {
-                //     offsetX = draggedElement.clientWidth - 50;
-                //     offsetY = draggedElement.clientHeight + 100;
-                // } else if (draggedElement.id === 'pigC') {
-                //     offsetX = draggedElement.clientWidth - 50;
-                //     offsetY = draggedElement.clientHeight + 100;
-                // } else if (draggedElement.id === 'pigD') {
-                //     offsetX = draggedElement.clientWidth - 50;
-                //     offsetY = draggedElement.clientHeight + 100;
-                // } else if (draggedElement.id === 'pigE') {
-                //     offsetX = draggedElement.clientWidth - 50;
-                //     offsetY = draggedElement.clientHeight + 100;
-                // }
+        // Alternatively, you can use the spread operator:
+        // const piggiesArray = [...piggies];
 
-                // Dropped in specified spot
-                draggedElement.style.position = 'absolute';
-                draggedElement.style.left = `${mouseX - offsetX}px`;
-                draggedElement.style.top = `${mouseY - offsetY}px`;
+        const parsedClickedPigId = parseInt(clickedPigId.match(/\d+/)[0], 10);
 
-                // Explicitly set width and height to maintain consistency
-                draggedElement.style.width = `${draggedElement.clientWidth}px`;
-                draggedElement.style.height = `${draggedElement.clientHeight}px`;
+        // Access the clicked pig directly
+        const clickedPig = piggieArray[parsedClickedPigId];
+        console.log("Clicked pig: ", clickedPig);
+    }
 
-                draggedElement = null;
-
-                dragContainer.classList.remove('dragOver');
-            }
-        };
-
-        // Attach event listeners to each piggie
-        const piggies = document.querySelectorAll('.piggie');
-        piggies.forEach(function (piggie) {
-            piggie.addEventListener('dragstart', handleDragStart);
-        });
-
-        // Attach event listeners to the drag container
-        dragContainer.addEventListener('dragover', handleDragOver);
-        dragContainer.addEventListener('dragleave', handleDragLeave);
-        dragContainer.addEventListener('drop', handleDrop);
+    // Attach event listeners to each piggie
+    const piggiesElements = document.querySelectorAll('.piggie');
+    piggiesElements.forEach(function (piggie) {
+        piggie.addEventListener('dragstart', handleDragStart);
+        piggie.addEventListener('click', handlePigClicked);
     });
+
+    // Attach event listeners to the drag container
+    dragContainer.addEventListener('dragover', handleDragOver);
+    dragContainer.addEventListener('dragleave', handleDragLeave);
+    dragContainer.addEventListener('drop', handleDrop);
+    // });
 }
 // // Puts the pigs in random positions
 // export function RandomizePigPositions(container) {
@@ -369,12 +395,86 @@ export function ColorBoxes(rowofBoxes, boxColors) { // Colors the Wordle boxes a
     });
 }
 
-function GeneratePig(GuineaPig) {
-
-}
-
 export function UpdateGoldDisplay() {
     const goldDisplay = document.getElementById('GoldNum');
     const currentGold = GetGoldAmmount();
     goldDisplay.textContent = currentGold.toString();
 }
+
+export function UpdateFoodStats() {
+    console.log("Piggie Array Length: ", piggies.length);
+    console.log("Food bowls: ", GetFoodAmmount());
+    const foodStatDisplay = document.getElementById('FoodStats');
+    const dailyFoodConsumption = piggies.length * 5;
+    const dailyFoodAvailable = GetFoodAmmount() * 10;
+    const statData = `${dailyFoodAvailable} food units/${dailyFoodConsumption} food units`;
+    foodStatDisplay.textContent = statData;
+}
+
+export function UpdateWaterStats() {
+    const waterStatDisplay = document.getElementById('WaterStats');
+    const dailyWaterConsumption = piggies.length * 5;
+    const dailyWaterAvailable = GetWaterAmmount() * 20;
+    const statData = `${dailyWaterAvailable} water units/${dailyWaterConsumption} water units`;
+    waterStatDisplay.textContent = statData;
+}
+
+export function UpdateRarityList() {
+    const rarestPiggieNames = DetermineRarestPiggies();
+    const rareContainer = document.getElementById("Rare");
+    const rarerContainer = document.getElementById("Rarer");
+    const rarestContainer = document.getElementById("Rarest");
+    rareContainer.textContent = rarestPiggieNames[2];
+    rarerContainer.textContent = rarestPiggieNames[1];
+    rarestContainer.textContent = rarestPiggieNames[0];
+}
+
+// Call AttachDragDropListeners after dynamically rendering piggies
+export function DynamicallyRenderPiggies() {
+    console.log("Dynamically Rendered Piggies");
+    const piggieArray = piggies;
+    const dragContainer = document.getElementById('dragContainer');
+
+    // Clear the existing content in the dragContainer
+    dragContainer.innerHTML = '';
+
+    // Iterate through the piggies array and create elements for each piggie
+    piggieArray.forEach((piggie, index) => {
+        const piggieElement = CreatePiggieElement(piggie, index);
+        dragContainer.appendChild(piggieElement);
+    });
+
+    // Attach event listeners to the dynamically created piggies
+    // AttachDragDropListeners();
+}
+
+function CreatePiggieElement(piggie, arrayIndex) {
+    const piggieElement = document.createElement('div');
+    piggieElement.classList.add('piggie');
+    piggieElement.setAttribute('draggable', 'true');
+    piggieElement.id = `${piggie.name}${arrayIndex}`;
+
+    const pigPicElement = document.createElement('img');
+    pigPicElement.classList.add('pigPic');
+    pigPicElement.src = piggie.image;
+    pigPicElement.alt = piggie.name;
+
+    // Dynamically set the id based on the piggie name
+    const pigPicId = `pig${piggie.image.charAt(piggie.image.length - 5)}`;
+    console.log("Pig Pic ID: ", pigPicId);
+    pigPicElement.id = pigPicId;
+
+    piggieElement.appendChild(pigPicElement);
+
+    console.log("Piggie Element:", piggieElement);
+
+    return piggieElement;
+}
+
+function AttachDragDropListeners() {
+    const piggies = document.querySelectorAll('.piggie');
+    piggies.forEach(function (piggie) {
+        piggie.addEventListener('dragstart', handleDragStart);
+    })
+}
+

@@ -46,7 +46,7 @@ app.listen(PORT, () => {
 
 app.post('/saveData', (req, res) => {
     const { username, password, gold, numOfFoodBowls, numOfWaterBottles, piggies } = req.body;
-    const piggiesString = JSON.stringify(piggies);
+    const piggiesString = JSON.stringify(piggies, null, 2);
 
     // Perform file I/O operations here
     fs.writeFileSync(`../SaveFiles/${username}.json`, `{\n   "Username": "${username}",\n   "Password": "${password}",\n   "Gold": "${gold}",\n   "numOfFoodBowls": "${numOfFoodBowls}",\n   "numOfWaterBottles": "${numOfWaterBottles}",\n   "Piggies": ${piggiesString}\n}`);
