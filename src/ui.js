@@ -1,4 +1,4 @@
-import { CurrentWordleRow, CheckWord, DetermineRarestPiggies } from "./domain.js";
+import { CurrentWordleRow, CheckWord, DetermineRarestPiggies, BaseWordleWinnings } from "./domain.js";
 import { GetGoldAmmount, getRandomWord, GetWaterAmmount, GetFoodAmmount, GuineaPig, piggies } from "./svc.js";
 
 // For description that toggles on Wordle Page
@@ -173,6 +173,9 @@ export function InitializeFarmPage() {
     // Dynamic Owner Banner
     SetOwnerBanner();
 
+    // Set the winnings stat
+    UpdateWinningsStat();
+
     // Grabbing Drag Container Element
     const dragContainer = document.getElementById('dragContainer');
 
@@ -258,6 +261,7 @@ export function InitializeFarmPage() {
         // Access the clicked pig directly
         const clickedPig = piggieArray[parsedClickedPigId];
         console.log("Clicked pig: ", clickedPig);
+        UpdatePigStats(clickedPig);
     }
 
     // Attach event listeners to each piggie
@@ -476,5 +480,24 @@ function AttachDragDropListeners() {
     piggies.forEach(function (piggie) {
         piggie.addEventListener('dragstart', handleDragStart);
     })
+}
+
+function UpdatePigStats(piggieSelected) {
+    const nameStat = document.getElementById("NameStat");
+    nameStat.textContent = piggieSelected.name;
+    const rareStat = document.getElementById("RarityStat");
+    rareStat.textContent = piggieSelected.rarity;
+    const personalityStat = document.getElementById("PersonalityStat");
+    personalityStat.textContent = piggieSelected.personality;
+    const _foodStat = document.getElementById("PiggieEats");
+    _foodStat.textContent = "5 food units daily";
+    const _waterStat = document.getElementById("PiggieDrinks");
+    _waterStat.textContent = "5 water units daily";
+}
+
+function UpdateWinningsStat() {
+    const winningsContainer = document.getElementById("BaseWordleWins");
+    const goldPerGame = BaseWordleWinnings();
+    winningsContainer.textContent = `${goldPerGame} Gold`;
 }
 

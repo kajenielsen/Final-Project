@@ -163,7 +163,7 @@ export async function InitializeFarmDomainElements() {
             buyPiggieBody.appendChild(form);
 
             // Handle form submission
-            form.addEventListener('submit', function (event) {
+            form.addEventListener('submit', async function (event) {
                 event.preventDefault();
                 const guineaPigName = document.getElementById('guineaPigName').value;
 
@@ -176,6 +176,14 @@ export async function InitializeFarmDomainElements() {
                     buyPiggieBody.removeChild(form);
                     CreateNewPig(guineaPigName, false);
                     UpdateRarityList();
+                    try {
+                        const data = await SaveData();
+                    } catch (error) {
+                        // Code to execute on SaveData error
+                        console.error("SaveData error:", error);
+                        // Handle the error or stop execution
+                    }
+                    location.reload();
                     console.log(piggies);
                 } else {
                     window.alert("Please enter a name for your guinea pig.");
@@ -189,8 +197,13 @@ export async function InitializeFarmDomainElements() {
     }) // Buying Rare Piggie
     document.getElementById("BuyRarePiggie").addEventListener('click', function () {
         const gold = GetGoldAmmount();
-        if (gold < 2000) {
-            window.alert("Insufficient funds to buy piggie");
+        if (gold < 2000 || SafeToBuyPiggie() === false) {
+            if (SafeToBuyPiggie() === false) {
+                window.alert("There will not be sufficient food and water to care for a new piggie. Cannot purchase.");
+            }
+            else {
+                window.alert("Insufficient funds to buy piggie");
+            }
         }
         else {
             // Create the form
@@ -211,7 +224,7 @@ export async function InitializeFarmDomainElements() {
             buyPiggieBody.appendChild(form);
 
             // Handle form submission
-            form.addEventListener('submit', function (event) {
+            form.addEventListener('submit', async function (event) {
                 event.preventDefault();
                 const guineaPigName = document.getElementById('guineaPigName').value;
 
@@ -224,6 +237,14 @@ export async function InitializeFarmDomainElements() {
                     buyPiggieBody.removeChild(form);
                     CreateNewPig(guineaPigName, true);
                     UpdateRarityList();
+                    try {
+                        const data = await SaveData();
+                    } catch (error) {
+                        // Code to execute on SaveData error
+                        console.error("SaveData error:", error);
+                        // Handle the error or stop execution
+                    }
+                    location.reload();
                     console.log(piggies);
                 } else {
                     window.alert("Please enter a name for your guinea pig.");
@@ -375,4 +396,38 @@ export function DetermineRarestPiggies() {
 
     return rarestPiggies;
 }
+
+export function BaseWordleWinnings() { // BALANCE GAME DIFFICULTY HERE
+    const _pigQuantity = piggies.length;
+
+    // Find the rarest value
+    let highestRarityValue = 1;
+    if (_pigQuantity > 0) {
+        // Find the piggie with the highest rarity
+        const highestRarityPiggie = piggies.reduce((prev, current) => {
+            return (prev.rarity > current.rarity) ? prev : current;
+        });
+
+        // Get the rarity value of the rarest piggie
+        highestRarityValue = highestRarityPiggie.rarity;
+
+        // Now, 'highestRarityValue' contains the rarity value of the rarest piggie
+        console.log("Rarest piggie rarity value:", highestRarityValue);
+
+    } else {
+        highestRarityValue = 1;
+    }
+
+    let baseWordleWinnings = 100;
+    baseWordleWinnings += _pigQuantity * 10;
+    const multiplier = 1 + (highestRarityValue / 10);
+    baseWordleWinnings *= multiplier;
+
+    // Round baseWordleWinnings to the nearest integer
+    baseWordleWinnings = Math.round(baseWordleWinnings);
+
+    return baseWordleWinnings;
+}
+
+// When you win a Wordle game, this stat will multiply by the number of remaining guesses you had to determine how much you won. This stat is determined by the quanitity, and rarity of your owned guinea pigs.
 

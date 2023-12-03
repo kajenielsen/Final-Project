@@ -1,7 +1,7 @@
 {
    "Username": "Kaje3",
    "Password": "Yahoo!",
-   "Gold": "500",
+   "Gold": "1000",
    "numOfFoodBowls": "6",
    "numOfWaterBottles": "3",
    "Piggies": [
@@ -22,6 +22,12 @@
     "rarity": 6,
     "personality": "angry",
     "image": "../Images/piggieD.png"
+  },
+  {
+    "name": "Punxi",
+    "rarity": 5,
+    "personality": "smart",
+    "image": "../Images/piggieB.png"
   },
   {
     "name": "Skuffles",

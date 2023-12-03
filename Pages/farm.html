@@ -51,15 +51,15 @@
                             <td>
                                 <dl id="PigStats">
                                     <dt>Name:</dt>
-                                    <dd>PigName</dd>
+                                    <dd id="NameStat">***Click a pig to see its stats!***</dd>
                                     <dt>Rarity Level:</dt>
-                                    <dd>5</dd>
+                                    <dd id="RarityStat"></dd>
                                     <dt>Personality:</dt>
-                                    <dd>Sassy</dd>
+                                    <dd id="PersonalityStat"></dd>
                                     <dt>Food Needed:</dt>
-                                    <dd>5 Food Units daily</dd>
+                                    <dd id="PiggieEats"></dd>
                                     <dt>Water Needed:</dt>
-                                    <dd>5 Water Units daily</dd>
+                                    <dd id="PiggieDrinks"></dd>
                                 </dl>
                             </td>
                             <td>
@@ -76,7 +76,15 @@
                                     <dt>Daily Available Food/Daily Food Consumption</dt>
                                     <dd id="FoodStats">10/5</dd>
                                     <dt>Current Wordle Earnings (base)</dt>
-                                    <dd>100 gold per game</dd>
+                                    <dd>
+                                        <ul>
+                                            <li id="BaseWordleWins">Number</li>
+                                            <li>When you win a Wordle game, this stat will multiply by
+                                                the number of remaining guesses you had to determine how
+                                                much you won. This stat is determined by the quanitity,
+                                                and rarity of your owned guinea pigs.</li>
+                                        </ul>
+                                    </dd>
                                 </dl>
                             </td>
                             <td id="Shop">
