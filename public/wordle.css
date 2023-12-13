@@ -44,34 +44,28 @@ h4 {
     box-shadow: 3 3 30px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
+#buttonAndWordleBox {
+    display: flex;
+    justify-content: center;
+    margin-left: 5em;
+}
+
 .GuessButton {
-    display: block;
-    position: relative;
-    right: -63%;
-    top: 28.3%;
-    transform: translateY(-50%);
     padding: 10px;
-    background-color: #007bff;
+    margin-left: 1em;
+    margin-top: 7em;
+    background-color: #3d8adc;
     color: #fff;
     border: none;
     cursor: pointer;
     font-size: 16px;
     transition: filter 0.1s ease;
+    height: 2.5em;
+    border-radius: 5px;
 }
 
 .GuessButton:hover {
     filter: brightness(1.5);
-}
-
-@media (max-width: 768px) { /* For screen half size, which I work with a lot, so it's mainly for my convenience. */
-    .GuessButton {
-        position: relative; /* Change to static positioning for smaller screens */
-        margin-top: 8px; /* Add margin from the top to separate it from the grid */
-        transform: translateY(0); /* Reset vertical translation */
-        right: -75%;
-        top: 26%;
-
-    }
 }
 
 .descbutton {
@@ -81,10 +75,9 @@ h4 {
 }
 
 .GuessingContainer {
-    justify-content: center;
     display: grid;
     grid-template-columns: repeat(5, 50px);
-    margin-top: 0px;
+    margin-top: 1em;
 }
 
 .wordlekeyboard {
@@ -97,8 +90,8 @@ h4 {
     display: block;
     width: 45px;
     height: 50px;
-    background-color: #86f1f4;
-    color: #EEC23C;
+    background-color: #73cccf;
+    color: #000000;
     text-align: center;
     line-height: 50px;
     text-decoration: none;
@@ -115,7 +108,7 @@ h4 {
 }
 
 #wordbox.selected {
-    background-color: white;
+    background-color: rgb(219, 219, 219);
     /* border-color: red;
     border-width: 3px; Not working for some reason.*/
 }
@@ -127,7 +120,7 @@ h4 {
 .wordlekey {
     width: 45px;
     height: 50px;
-    background-color: #EEC23C;
+    background-color: #dab74f;
     color: white;
     text-align: center;
     line-height: 50px;
@@ -172,23 +165,33 @@ h4 {
 }
 
 .wordyellow {
-    color: yellow;
+    color: rgb(229, 229, 132);
 }
 
 .wordred {
-    color: red;
+    color: rgb(201, 94, 94);
 }
 
 /* For coloring the wordboxes */
 
 #wordbox.green {
-    background-color: green;
+    background-color: rgb(38, 102, 38);
 }
 
 #wordbox.yellow {
-    background-color: yellow;
+    background-color: rgb(229, 229, 132);
 }
 
 #wordbox.red {
-    background-color: red;
+    background-color: rgb(201, 94, 94);
+}
+
+#descList {
+   display: inline-block;
+   text-align: left;
+   justify-content: center;
+}
+
+#howToPlayContent {
+    text-align: center;
 }

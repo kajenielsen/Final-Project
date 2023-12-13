@@ -16,93 +16,95 @@
     <h1>Wordle Time!</h1>
     <h3 id="goodLuckBanner"></h3>
     <h4 id="WinningsBase"></h4>
-    <button class="GuessButton">Guess</button>
-    <section class="GuessingContainer">
-        <div class="column1">
-            <a class="box1" id="wordbox">
-            
-            </a>
-            <a class="box2" id="wordbox">
+    <div id="buttonAndWordleBox">
+        <section class="GuessingContainer">
+            <div class="column1">
+                <a class="box1" id="wordbox">
 
-            </a>
-            <a class="box3" id="wordbox">
+                </a>
+                <a class="box2" id="wordbox">
 
-            </a>
-            <a class="box4" id="wordbox">
+                </a>
+                <a class="box3" id="wordbox">
 
-            </a>
-            <a class="box5" id="wordbox">
+                </a>
+                <a class="box4" id="wordbox">
 
-            </a>
-        </div>
-        <div class="column2">
-            <a class="box1" id="wordbox">
+                </a>
+                <a class="box5" id="wordbox">
 
-            </a>
-            <a class="box2" id="wordbox">
+                </a>
+            </div>
+            <div class="column2">
+                <a class="box1" id="wordbox">
 
-            </a>
-            <a class="box3" id="wordbox">
+                </a>
+                <a class="box2" id="wordbox">
 
-            </a>
-            <a class="box4" id="wordbox">
+                </a>
+                <a class="box3" id="wordbox">
 
-            </a>
-            <a class="box5" id="wordbox">
+                </a>
+                <a class="box4" id="wordbox">
 
-            </a>
-        </div>
-        <div class="column3">
-            <a class="box1" id="wordbox">
+                </a>
+                <a class="box5" id="wordbox">
 
-            </a>
-            <a class="box2" id="wordbox">
+                </a>
+            </div>
+            <div class="column3">
+                <a class="box1" id="wordbox">
 
-            </a>
-            <a class="box3" id="wordbox">
+                </a>
+                <a class="box2" id="wordbox">
 
-            </a>
-            <a class="box4" id="wordbox">
+                </a>
+                <a class="box3" id="wordbox">
 
-            </a>
-            <a class="box5" id="wordbox">
+                </a>
+                <a class="box4" id="wordbox">
 
-            </a>
-        </div>
-        <div class="column4">
-            <a class="box1" id="wordbox">
+                </a>
+                <a class="box5" id="wordbox">
 
-            </a>
-            <a class="box2" id="wordbox">
+                </a>
+            </div>
+            <div class="column4">
+                <a class="box1" id="wordbox">
 
-            </a>
-            <a class="box3" id="wordbox">
+                </a>
+                <a class="box2" id="wordbox">
 
-            </a>
-            <a class="box4" id="wordbox">
+                </a>
+                <a class="box3" id="wordbox">
 
-            </a>
-            <a class="box5" id="wordbox">
+                </a>
+                <a class="box4" id="wordbox">
 
-            </a>
-        </div>
-        <div class="column5">
-            <a class="box1" id="wordbox">
+                </a>
+                <a class="box5" id="wordbox">
 
-            </a>
-            <a class="box2" id="wordbox">
+                </a>
+            </div>
+            <div class="column5">
+                <a class="box1" id="wordbox">
 
-            </a>
-            <a class="box3" id="wordbox">
+                </a>
+                <a class="box2" id="wordbox">
 
-            </a>
-            <a class="box4" id="wordbox">
+                </a>
+                <a class="box3" id="wordbox">
 
-            </a>
-            <a class="box5" id="wordbox">
+                </a>
+                <a class="box4" id="wordbox">
 
-            </a>
-    </section>
+                </a>
+                <a class="box5" id="wordbox">
+
+                </a>
+        </section>
+        <button class="GuessButton">Guess</button>
+    </div>
     <table class="wordlekeyboard">
         <tr>
             <td class="wordlekey">A</td>
@@ -140,19 +142,23 @@
         <h4>How to play Wordle</h4>
         <button id="showDescriptionButton" class="descbutton">Toggle Description</button>
         <aside id="howToPlayContent">
-            <p class ="wordleisa">Wordle is a word puzzle game where the player tries to guess a secret word. Here's how to play:</p>
-            <ol>
-                <li>Click on a box, then start typing with the digital keyboard.</li>
-                <li>Begin on the first row, then click "Guess" to make a guess.</li>
-                <li>The letters will change color to indicate correctness:
-                    <ul>
-                        <li><strong class = wordgreen>Green:</strong> Correct and in the correct position.</li>
-                        <li><strong class="wordyellow">Yellow:</strong> Correct but in the wrong position.</li>
-                        <li><strong class="wordred">Red:</strong> Word does not contain letter.</li>
-                    </ul>
-                </li>
-                <li>Keep guessing until you find the correct word or run out of attempts!</li>
-            </ol>
+            <p class="wordleisa">Wordle is a word puzzle game where the player tries to guess a secret word. Here's how
+                to play:
+            </p>
+            <div id="descList">
+                <ol>
+                    <li>Click on a box, then start typing with the digital keyboard.</li>
+                    <li>Begin on the first row, then click "Guess" to make a guess.</li>
+                    <li>The letters will change color to indicate correctness:
+                        <ul>
+                            <li><strong class=wordgreen>Green:</strong> Correct and in the correct position.</li>
+                            <li><strong class="wordyellow">Yellow:</strong> Correct but in the wrong position.</li>
+                            <li><strong class="wordred">Red:</strong> Word does not contain letter.</li>
+                        </ul>
+                    </li>
+                    <li>Keep guessing until you find the correct word or run out of attempts!</li>
+                </ol>
+            </div>
         </aside>
     </article>
 </body>
