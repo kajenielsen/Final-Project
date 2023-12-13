@@ -1,0 +1,48 @@
+{
+    "routes": [
+        {
+            "src": "/menu.html",
+            "dest": "/public/menu.html"
+        },
+        {
+            "src": "/farm.html",
+            "dest": "/public/farm.html"
+        },
+        {
+            "src": "/wordle.html",
+            "dest": "/public/wordle.html"
+        },
+        {
+            "src": "/menu.css",
+            "dest": "/public/menu.css"
+        },
+        {
+            "src": "/farm.css",
+            "dest": "/public/farm.css"
+        },
+        {
+            "src": "/wordle.css",
+            "dest": "/public/wordle.css"
+        },
+        {
+            "src": "/Images/(.*)",
+            "dest": "/public/Images/$1"
+        },
+        {
+            "src": "/SaveFiles/(.*)",
+            "dest": "/public/SaveFiles/$1"
+        },
+        {
+            "src": "/src/(.*)",
+            "dest": "/src/$1"
+        },
+        {
+            "src": "/API/(.*)",
+            "dest": "/API/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/public/$1"
+        }
+    ]
+}
