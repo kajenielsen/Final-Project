@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap');
 
+:root {
+    --lightgrass: #c0ff6d;
+    --darkgrass: #62bc2f;
+    --mudbrown: #5d441d;
+    --customlightblue: #96e2ee;
+    --customdarkblue: #1b72ae;
+}
+
 body {
     background: url(../Images/grass.jpg);
     background-size: cover;
@@ -8,6 +16,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    color: var(--customlightblue);
 }
 
 body,
@@ -25,13 +34,13 @@ html {
     margin: auto;
     margin-top: 0px;
     margin-bottom: 0px;
-    color: #FB024A;
+    color: var(--customdarkblue);
     text-shadow: 2px 2px 4px black;
 }
 
 #ownerbanner {
     text-align: center;
-    color: #6ADCFD;
+    color: var(--customlightblue);
     font-weight: bolder;
     text-shadow: 1px 1px 2px black;
     margin-top: 0px;
@@ -44,9 +53,9 @@ html {
     text-align: center;
     /* Updated to left */
     text-decoration: none;
-    background-color: #F0F624;
+    background-color: var(--customlightblue);
     color: black;
-    border: 1px solid #9BA004;
+    border: 1px solid var(--customdarkblue);
     border-radius: 7px;
     transition: background-color 0.3s ease;
     margin: 10px 20px;
@@ -60,14 +69,14 @@ html {
 /* Info Container Styles */
 
 .InfoBox {
-    background-color: #F6F7CB;
+    background-color: var(--lightgrass);
     padding: 20px;
     position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
     height: 35%;
-    border: 4px solid red;
+    border: 4px solid var(--darkgrass);
     box-sizing: border-box;
     /* Includes border in scaling */
     border-collapse: collapse;
@@ -113,7 +122,7 @@ html {
 }
 
 .TableContainer {
-    max-height: 200px;
+    height: 100%;
     overflow-y: auto;
 }
 
@@ -135,7 +144,7 @@ html {
     margin-top: 0px;
     /* Add some spacing above the table */
     border-collapse: collapse;
-    background-color: #fff;
+    background-color: var(--mudbrown);
     /* Set a background color for the table */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     /* Add a subtle box shadow */
@@ -143,11 +152,11 @@ html {
 }
 
 #titles th {
-    background-color: #f2f2f2;
+    background-color: var(--customdarkblue);
     padding: 15px;
     text-align: center;
     font-weight: bold;
-    border: 1px solid #ddd;
+    border: 1px solid var(--darkgrass);
     /* Add a border between header cells */
 }
 
@@ -156,7 +165,7 @@ html {
     text-align: left;
     vertical-align: top;
     /* Align content to the top of data cells */
-    border: 1px solid #ddd;
+    border: 1px solid var(--darkgrass);
     /* Add a border between data cells */
 }
 
@@ -257,10 +266,10 @@ html {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    border: 2px solid #3498db;
+    border: 2px solid var(--customdarkblue);
     border-radius: 5px;
-    color: #3498db;
-    background-color: #ffffff;
+    color: var(--customdarkblue);
+    background-color: var(--customlightblue);
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
@@ -271,7 +280,7 @@ html {
 }
 
 #GoldAmt {
-    color: green;
+    color: var(--darkgrass);
 }
 
 #GoldNum {

@@ -205,7 +205,7 @@ export function InitializeFarmPage() {
 
             // Calculate the offset dynamically based on the pig's size
             const offsetX = draggedElement.clientWidth / 2;
-            const offsetY = draggedElement.clientHeight * 1.5;
+            const offsetY = draggedElement.clientHeight * 2;
 
             // // Adjust the position based on the offset of the mouse click based on ID // Giving me issues
             // let offsetX = 0;
